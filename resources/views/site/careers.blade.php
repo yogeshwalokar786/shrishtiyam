@@ -3,6 +3,49 @@
 @section('title', 'Careers & Culture | ' . setting('site_name', 'SHRISTIYAM'))
 @section('meta_description', 'Join Shristiyam Compliance Solutions. We are hiring across EPR compliance, industrial waste aggregation, alternative biomass fuels, and supply chain logistics.')
 
+@push('styles')
+<style>
+  .career-hero-btn {
+    background: rgba(255, 255, 255, 0.14) !important;
+    color: #ffffff !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(8px);
+    font-weight: 700;
+    transition: all 0.25s ease;
+  }
+  .career-hero-btn:hover {
+    background: #ffffff !important;
+    color: #05261b !important;
+    border-color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
+
+  .career-talent-btn {
+    background: #ffffff !important;
+    color: #05261b !important;
+    border: 1.5px solid #ffffff !important;
+    font-weight: 700;
+    white-space: nowrap;
+    padding: 12px 26px;
+    border-radius: 10px;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .career-talent-btn:hover {
+    background: #669a2b !important;
+    color: #ffffff !important;
+    border-color: #669a2b !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(102, 154, 43, 0.4);
+  }
+</style>
+@endpush
+
 @section('content')
   <!-- Careers Hero Header (Dark Cinema Aesthetics matching Site Identity) -->
   <section class="section" style="background: radial-gradient(circle at top right, rgba(46, 115, 157, 0.22) 0%, rgba(5, 38, 27, 0.98) 60%), #05261b; color: #ffffff; padding: 150px 0 80px 0; position: relative; overflow: hidden;">
@@ -19,7 +62,13 @@
         </p>
         <div style="display: flex; gap: 14px; flex-wrap: wrap;">
           <a href="#open-roles" class="btn btn-primary" style="background: #669a2b; border-color: #669a2b;">Explore Opportunities ↓</a>
-          <a href="#apply-form" class="btn btn-secondary" style="border-color: rgba(255,255,255,0.3); color: #ffffff;">Submit Resume Directly ↓</a>
+          <a href="#apply-form" 
+             class="btn career-hero-btn" 
+             style="background: rgba(255, 255, 255, 0.14); color: #ffffff; border: 1.5px solid rgba(255, 255, 255, 0.5); backdrop-filter: blur(8px); padding: 13px 26px; font-weight: 700; text-decoration: none; border-radius: var(--radius-sm); transition: all 0.25s ease;"
+             onmouseover="this.style.background='#ffffff'; this.style.color='#05261b'; this.style.borderColor='#ffffff';"
+             onmouseout="this.style.background='rgba(255, 255, 255, 0.14)'; this.style.color='#ffffff'; this.style.borderColor='rgba(255, 255, 255, 0.5)';">
+            Submit Resume Directly ↓
+          </a>
         </div>
       </div>
     </div>
@@ -275,8 +324,13 @@
             </p>
           </div>
           <div>
-            <a href="tel:{{ setting('contact_phone', '+917020784898') }}" class="btn btn-secondary" style="border-color: rgba(255,255,255,0.3); color: #ffffff; white-space: nowrap; font-size: 0.9rem;">
-              Call Talent Desk →
+            <a href="tel:{{ setting('contact_phone', '+917020784898') }}" 
+               class="btn career-talent-btn" 
+               style="background: #ffffff; color: #05261b; border: 1.5px solid #ffffff; font-weight: 700; white-space: nowrap; font-size: 0.92rem; padding: 12px 24px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.25s ease; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);"
+               onmouseover="this.style.background='#669a2b'; this.style.color='#ffffff'; this.style.borderColor='#669a2b';"
+               onmouseout="this.style.background='#ffffff'; this.style.color='#05261b'; this.style.borderColor='#ffffff';">
+              <span>Call Talent Desk</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
           </div>
         </div>
