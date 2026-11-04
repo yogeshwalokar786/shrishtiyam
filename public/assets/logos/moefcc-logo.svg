@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 180" width="280" height="180">
+  <defs>
+    <filter id="govShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.08" />
+    </filter>
+  </defs>
+
+  <!-- Ashoka Emblem Motif (State Emblem of India) -->
+  <g transform="translate(140, 52)" stroke="#1e293b" fill="#1e293b" stroke-width="0.5">
+    <!-- Lions Silhouette and Crest -->
+    <path d="M-18 -32 C-18 -38 -8 -42 0 -42 C8 -42 18 -38 18 -32 C18 -26 14 -22 14 -16 C14 -8 18 0 18 10 L-18 10 C-18 0 -14 -8 -14 -16 C-14 -22 -18 -26 -18 -32 Z" fill="#334155" />
+    <!-- Three Lions Details -->
+    <circle cx="0" cy="-28" r="6" fill="#f8fafc" stroke="#1e293b" stroke-width="1.5" />
+    <circle cx="-10" cy="-26" r="4.5" fill="#f8fafc" stroke="#1e293b" stroke-width="1.5" />
+    <circle cx="10" cy="-26" r="4.5" fill="#f8fafc" stroke="#1e293b" stroke-width="1.5" />
+
+    <!-- Abacus Platform -->
+    <rect x="-24" y="10" width="48" height="8" rx="2" fill="#1e293b" />
+    <!-- Dharma Chakra Wheel -->
+    <circle cx="0" cy="14" r="3.5" fill="#ffffff" stroke="#1e293b" stroke-width="1" />
+    <!-- Base Plate -->
+    <rect x="-28" y="18" width="56" height="5" rx="1.5" fill="#475569" />
+
+    <!-- Satyameva Jayate Banner -->
+    <text x="0" y="32" font-family="'Noto Sans Devanagari', 'Mangal', 'Inter', serif" font-size="8.5" font-weight="800" fill="#0f172a" text-anchor="middle" letter-spacing="1">सत्यमेव जयते</text>
+  </g>
+
+  <!-- Ministry Text -->
+  <text x="140" y="122" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="800" fill="#0f172a" text-anchor="middle" letter-spacing="0.2">पर्यावरण, वन एवं जलवायु परिवर्तन मंत्रालय</text>
+  <text x="140" y="140" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#334155" text-anchor="middle">Ministry of Environment, Forest and Climate Change</text>
+  <text x="140" y="156" font-family="'Inter', system-ui, sans-serif" font-size="8.5" font-weight="600" fill="#059669" text-anchor="middle" letter-spacing="1">GOVERNMENT OF INDIA</text>
+</svg>

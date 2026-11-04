@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50" width="160" height="50">
+  <g transform="translate(18, 25)">
+    <!-- Blue Star Symbol -->
+    <path d="M0 -14 L4 -4 L14 0 L4 4 L0 14 L-4 4 L-14 0 L-4 -4 Z" fill="#003399" />
+  </g>
+  <text x="44" y="31" font-family="'Inter', system-ui, -apple-system, sans-serif" font-size="16" font-weight="900" fill="#003399" letter-spacing="2">BLUE STAR</text>
+</svg>

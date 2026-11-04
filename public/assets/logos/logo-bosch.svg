@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 50" width="160" height="50">
+  <g transform="translate(24, 25)">
+    <!-- Bosch Armature Emblem -->
+    <circle cx="0" cy="0" r="14" stroke="#ea1c24" stroke-width="3" fill="none" />
+    <rect x="-8" y="-4" width="16" height="8" rx="2" stroke="#ea1c24" stroke-width="2.5" fill="none" />
+    <line x1="-12" y1="0" x2="-8" y2="0" stroke="#ea1c24" stroke-width="2.5" />
+    <line x1="8" y1="0" x2="12" y2="0" stroke="#ea1c24" stroke-width="2.5" />
+  </g>
+  <text x="48" y="32" font-family="'Inter', system-ui, -apple-system, sans-serif" font-size="20" font-weight="900" fill="#ea1c24" letter-spacing="2">BOSCH</text>
+</svg>
