@@ -186,12 +186,12 @@ class EnquiryAndContactTest extends TestCase
     {
         Storage::fake('public');
 
-        $resumeFile = UploadedFile::fake()->create('sarthak_resume.pdf', 500, 'application/pdf');
+        $resumeFile = UploadedFile::fake()->create('resume_jane_doe.pdf', 500, 'application/pdf');
 
         $response = $this->post('/careers/apply', [
-            'name' => 'Sarthak Walokar',
-            'email' => 'sarthak.test@example.com',
-            'phone' => '+91 7020784898',
+            'name' => 'Jane Doe',
+            'email' => 'jane.doe@example.com',
+            'phone' => '+91 98765 43210',
             'position' => 'EPR & Compliance Advisory',
             'experience' => '3 - 5 Years',
             'current_role' => 'Senior Compliance Analyst',
@@ -203,14 +203,14 @@ class EnquiryAndContactTest extends TestCase
         $response->assertSessionHas('success');
 
         $this->assertDatabaseHas('enquiries', [
-            'name' => 'Sarthak Walokar',
-            'email' => 'sarthak.test@example.com',
-            'phone' => '+91 7020784898',
+            'name' => 'Jane Doe',
+            'email' => 'jane.doe@example.com',
+            'phone' => '+91 98765 43210',
             'source' => 'careers_page',
             'status' => 'new',
         ]);
 
-        $enquiry = Enquiry::where('email', 'sarthak.test@example.com')->first();
+        $enquiry = Enquiry::where('email', 'jane.doe@example.com')->first();
         $this->assertNotNull($enquiry);
         $this->assertNotNull($enquiry->resume_path);
         Storage::disk('public')->assertExists($enquiry->resume_path);

@@ -64,7 +64,7 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
               <div class="form-group" style="margin-bottom: 0;">
                 <label class="form-label">Phone / WhatsApp</label>
-                <input type="tel" name="phone" value="{{ old('phone') }}" placeholder="+91 7020784898" class="form-control">
+                <input type="tel" name="phone" value="{{ old('phone') }}" placeholder="+91 98765 43210" class="form-control">
               </div>
               <div class="form-group" style="margin-bottom: 0;">
                 <label class="form-label">Subject / Requirement <span class="required-star">*</span></label>

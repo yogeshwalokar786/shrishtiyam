@@ -156,14 +156,14 @@
                 <label class="form-label" style="font-size: 0.88rem; font-weight: 600; color: #334155; margin-bottom: 8px; display: block;">
                   Full Name <span style="color: #ef4444;">*</span>
                 </label>
-                <input type="text" name="name" value="{{ old('name') }}" required placeholder="e.g. Sarthak Walokar" class="form-control" style="width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 0.92rem;">
+                <input type="text" name="name" value="{{ old('name') }}" required placeholder="e.g. John Doe" class="form-control" style="width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 0.92rem;">
               </div>
 
               <div class="form-group" style="margin-bottom: 0;">
                 <label class="form-label" style="font-size: 0.88rem; font-weight: 600; color: #334155; margin-bottom: 8px; display: block;">
                   Email Address <span style="color: #ef4444;">*</span>
                 </label>
-                <input type="email" name="email" value="{{ old('email') }}" required placeholder="e.g. name@domain.com" class="form-control" style="width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 0.92rem;">
+                <input type="email" name="email" value="{{ old('email') }}" required placeholder="e.g. john.doe@example.com" class="form-control" style="width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 0.92rem;">
               </div>
             </div>
 
@@ -173,7 +173,7 @@
                 <label class="form-label" style="font-size: 0.88rem; font-weight: 600; color: #334155; margin-bottom: 8px; display: block;">
                   Phone / WhatsApp Number <span style="color: #ef4444;">*</span>
                 </label>
-                <input type="tel" name="phone" value="{{ old('phone') }}" required placeholder="e.g. +91 7020784898" class="form-control" style="width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 0.92rem;">
+                <input type="tel" name="phone" value="{{ old('phone') }}" required placeholder="e.g. +91 98765 43210" class="form-control" style="width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid #cbd5e1; font-size: 0.92rem;">
               </div>
 
               <div class="form-group" style="margin-bottom: 0;">
