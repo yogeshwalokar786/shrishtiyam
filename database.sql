@@ -159,6 +159,7 @@ CREATE TABLE `enquiries` (
   `requirement` varchar(255) DEFAULT NULL,
   `projected_volume` varchar(255) DEFAULT NULL,
   `message` text DEFAULT NULL,
+  `resume_path` varchar(255) DEFAULT NULL,
   `source` varchar(255) NOT NULL DEFAULT 'contact_page',
   `status` varchar(255) NOT NULL DEFAULT 'new',
   `admin_notes` text DEFAULT NULL,

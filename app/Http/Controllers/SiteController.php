@@ -9,6 +9,11 @@ use App\Models\Enquiry;
 use App\Models\Policy;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class SiteController extends Controller
 {
@@ -486,6 +491,113 @@ class SiteController extends Controller
     /**
      * Optional coming-soon page.
      */
+    /**
+     * Handle submission of career resume & application form.
+     */
+    public function submitCareerApplication(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:150',
+            'email' => 'required|email|max:150',
+            'phone' => 'required|string|max:30',
+            'position' => 'required|string|max:150',
+            'experience' => 'nullable|string|max:50',
+            'current_role' => 'nullable|string|max:150',
+            'message' => 'nullable|string|max:5000',
+            'resume' => 'required|file|mimes:pdf,doc,docx|max:10240',
+        ], [
+            'resume.required' => 'Please upload your CV / Resume file (PDF, DOC, or DOCX).',
+            'resume.mimes' => 'The resume must be a file of type: PDF, DOC, DOCX.',
+            'resume.max' => 'The resume file size must not exceed 10MB.',
+        ]);
+
+        $resumePath = null;
+        $originalFileName = null;
+
+        if ($request->hasFile('resume') && $request->file('resume')->isValid()) {
+            $file = $request->file('resume');
+            $originalFileName = $file->getClientOriginalName();
+            $extension = $file->getClientOriginalExtension();
+            $safeBaseName = Str::slug(pathinfo($originalFileName, PATHINFO_FILENAME));
+            $fileName = time() . '_' . ($safeBaseName ?: 'resume') . '.' . $extension;
+
+            $resumePath = $file->storeAs('resumes', $fileName, 'public');
+        }
+
+        $formattedDetails = [];
+        $formattedDetails[] = "Position Applied: " . $validated['position'];
+        if (!empty($validated['experience'])) {
+            $formattedDetails[] = "Experience Level: " . $validated['experience'];
+        }
+        if (!empty($validated['current_role'])) {
+            $formattedDetails[] = "Current Role / Company: " . $validated['current_role'];
+        }
+        if ($originalFileName) {
+            $formattedDetails[] = "Resume File: " . $originalFileName;
+        }
+        if ($resumePath) {
+            $formattedDetails[] = "Resume Download Link: " . asset('storage/' . $resumePath);
+        }
+        if (!empty($validated['message'])) {
+            $formattedDetails[] = "\nCandidate Cover Note:\n" . $validated['message'];
+        }
+
+        $enquiryData = [
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'],
+            'company' => $validated['current_role'] ?? null,
+            'subject' => 'Career Application: ' . $validated['position'],
+            'requirement' => $validated['position'],
+            'projected_volume' => !empty($validated['experience']) ? ('Exp: ' . $validated['experience']) : null,
+            'message' => implode("\n", $formattedDetails),
+            'source' => 'careers_page',
+            'status' => 'new',
+            'ip_address' => $request->ip(),
+        ];
+
+        if (Schema::hasColumn('enquiries', 'resume_path')) {
+            $enquiryData['resume_path'] = $resumePath;
+        }
+
+        $enquiry = Enquiry::create($enquiryData);
+
+        // Send email notification to talent desk if mail driver is active
+        try {
+            $talentEmail = setting('contact_email', 'admin@shristiyam.com');
+            $applicantName = $validated['name'];
+            $position = $validated['position'];
+            $mailSubject = "New Career Application: {$position} - {$applicantName}";
+
+            Mail::raw("A new career application has been received via the Careers page.\n\n" . implode("\n", $formattedDetails) . "\n\nApplicant Contact:\nEmail: {$validated['email']}\nPhone: {$validated['phone']}\n\nYou can also review this application in the Admin Portal Messages section.", function ($message) use ($talentEmail, $mailSubject, $resumePath, $originalFileName) {
+                $message->to($talentEmail)
+                        ->subject($mailSubject);
+
+                if ($resumePath && Storage::disk('public')->exists($resumePath)) {
+                    $fullPath = Storage::disk('public')->path($resumePath);
+                    $message->attach($fullPath, [
+                        'as' => $originalFileName ?? 'Resume.pdf',
+                    ]);
+                }
+            });
+        } catch (\Throwable $e) {
+            Log::info('Career application email dispatch note: ' . $e->getMessage());
+        }
+
+        $successMsg = 'Thank you! Your career application and resume have been submitted successfully. Our talent team will review your application and get in touch.';
+
+        if ($request->expectsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => $successMsg,
+                'id' => $enquiry->id,
+            ]);
+        }
+
+        return redirect()->to(route('careers') . '#apply-form')
+            ->with('success', $successMsg);
+    }
+
     public function comingSoon()
     {
         return view('coming-soon');

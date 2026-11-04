@@ -18,11 +18,23 @@ class Enquiry extends Model
         'requirement',
         'projected_volume',
         'message',
+        'resume_path',
         'source',
         'status',
         'admin_notes',
         'ip_address',
     ];
+
+    /**
+     * Get URL for attached resume if present.
+     */
+    public function getResumeUrlAttribute(): ?string
+    {
+        if (!empty($this->resume_path)) {
+            return asset('storage/' . $this->resume_path);
+        }
+        return null;
+    }
 
     /**
      * Scope for new/unread enquiries.

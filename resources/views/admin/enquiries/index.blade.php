@@ -117,11 +117,20 @@
                                     <span style="font-weight: 600;">Details:</span> {{ $item->projected_volume }}
                                 </div>
                             @endif
+                            @if(!empty($item->resume_path))
+                                <div style="margin-top: 6px;">
+                                    <a href="{{ asset('storage/' . $item->resume_path) }}" target="_blank" style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; font-weight: 700; color: #059669; text-decoration: none; background: rgba(16, 185, 129, 0.1); padding: 3px 8px; border-radius: 4px;">
+                                        📄 View Resume
+                                    </a>
+                                </div>
+                            @endif
                         </td>
 
                         <td style="padding: 16px 20px; vertical-align: top;">
                             @if($item->source === 'contact_page')
                                 <span style="font-size: 0.78rem; font-weight: 600; padding: 4px 8px; border-radius: 4px; background: rgba(59, 130, 246, 0.1); color: #2563eb;">Contact Page</span>
+                            @elseif($item->source === 'careers_page')
+                                <span style="font-size: 0.78rem; font-weight: 600; padding: 4px 8px; border-radius: 4px; background: rgba(16, 185, 129, 0.1); color: #059669;">Career Application</span>
                             @else
                                 <span style="font-size: 0.78rem; font-weight: 600; padding: 4px 8px; border-radius: 4px; background: rgba(139, 92, 246, 0.1); color: #7c3aed;">Website Modal</span>
                             @endif
@@ -203,6 +212,12 @@
                 <strong style="display: block; font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase;">Details / Note</strong>
                 <span id="modalVolume" style="font-weight: 600;"></span>
             </div>
+            <div id="modalResumeBox" style="grid-column: span 2; display: none; background: rgba(16, 185, 129, 0.08); padding: 12px 16px; border-radius: var(--radius-md); border: 1px solid rgba(16, 185, 129, 0.25);">
+                <strong style="display: block; font-size: 0.78rem; color: #059669; text-transform: uppercase; margin-bottom: 6px;">Candidate Resume / CV</strong>
+                <a id="modalResumeLink" href="" target="_blank" class="btn btn-sm btn-primary" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; font-size: 0.84rem; text-decoration: none; background: #059669; border-color: #059669;">
+                    📄 Download / View Attached Resume
+                </a>
+            </div>
         </div>
 
         <div style="margin-bottom: 22px;">
@@ -270,10 +285,24 @@ function openEnquiryModal(item) {
         badge.textContent = 'Contact Page Submission';
         badge.style.background = 'rgba(59, 130, 246, 0.1)';
         badge.style.color = '#2563eb';
+    } else if (item.source === 'careers_page') {
+        badge.textContent = 'Career Application';
+        badge.style.background = 'rgba(16, 185, 129, 0.1)';
+        badge.style.color = '#059669';
     } else {
         badge.textContent = 'Consultation Modal Lead';
         badge.style.background = 'rgba(139, 92, 246, 0.1)';
         badge.style.color = '#7c3aed';
+    }
+
+    const resumeBox = document.getElementById('modalResumeBox');
+    const resumeLink = document.getElementById('modalResumeLink');
+    if (item.resume_path) {
+        resumeBox.style.display = 'block';
+        resumeLink.href = '{{ asset('storage') }}/' + item.resume_path;
+    } else {
+        resumeBox.style.display = 'none';
+        resumeLink.href = '';
     }
 
     document.getElementById('modalStatusSelect').value = item.status || 'new';

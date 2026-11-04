@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Models\Enquiry;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class EnquiryAndContactTest extends TestCase
@@ -24,7 +26,7 @@ class EnquiryAndContactTest extends TestCase
         $response->assertSee('9112327953');
         $response->assertSeeText('Corporate Inquiries');
         $response->assertSeeText('EPR Statutory Compliance Desk');
-        $response->assertSeeText('Polymer Materials & Procurement Desk');
+        $response->assertSeeText('Industrial Fuels & Off-Take Desk');
         $response->assertSee('admin@shristiyam.com');
     }
 
@@ -43,7 +45,7 @@ class EnquiryAndContactTest extends TestCase
         $response->assertSee('materials-supply@custom-domain.com');
         $response->assertSeeText('Corporate Inquiries');
         $response->assertSeeText('EPR Statutory Compliance Desk');
-        $response->assertSeeText('Polymer Materials & Procurement Desk');
+        $response->assertSeeText('Industrial Fuels & Off-Take Desk');
     }
 
     public function test_client_can_submit_contact_form()
@@ -168,5 +170,61 @@ class EnquiryAndContactTest extends TestCase
         $this->assertDatabaseMissing('enquiries', [
             'id' => $enquiry->id,
         ]);
+    }
+
+    public function test_careers_page_loads_with_resume_application_form(): void
+    {
+        $response = $this->get('/careers');
+        $response->assertStatus(200);
+        $response->assertSee('Submit Your Resume & Profile');
+        $response->assertSee('Direct Talent Portal');
+        $response->assertSee('Upload CV / Resume');
+        $response->assertSee(route('careers.apply'));
+    }
+
+    public function test_candidate_can_submit_resume_via_career_form(): void
+    {
+        Storage::fake('public');
+
+        $resumeFile = UploadedFile::fake()->create('sarthak_resume.pdf', 500, 'application/pdf');
+
+        $response = $this->post('/careers/apply', [
+            'name' => 'Sarthak Walokar',
+            'email' => 'sarthak.test@example.com',
+            'phone' => '+91 7020784898',
+            'position' => 'EPR & Compliance Advisory',
+            'experience' => '3 - 5 Years',
+            'current_role' => 'Senior Compliance Analyst',
+            'message' => 'Passionate about circularity frameworks and CPCB portal automation.',
+            'resume' => $resumeFile,
+        ]);
+
+        $response->assertRedirect(route('careers') . '#apply-form');
+        $response->assertSessionHas('success');
+
+        $this->assertDatabaseHas('enquiries', [
+            'name' => 'Sarthak Walokar',
+            'email' => 'sarthak.test@example.com',
+            'phone' => '+91 7020784898',
+            'source' => 'careers_page',
+            'status' => 'new',
+        ]);
+
+        $enquiry = Enquiry::where('email', 'sarthak.test@example.com')->first();
+        $this->assertNotNull($enquiry);
+        $this->assertNotNull($enquiry->resume_path);
+        Storage::disk('public')->assertExists($enquiry->resume_path);
+    }
+
+    public function test_career_form_requires_mandatory_fields_and_valid_resume(): void
+    {
+        $response = $this->post('/careers/apply', [
+            'name' => '',
+            'email' => 'not-an-email',
+            'phone' => '',
+            'position' => '',
+        ]);
+
+        $response->assertSessionHasErrors(['name', 'email', 'phone', 'position', 'resume']);
     }
 }

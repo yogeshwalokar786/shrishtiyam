@@ -26,6 +26,7 @@ Route::get('/', [SiteController::class, 'home'])->name('home');
 Route::get('/about', [SiteController::class, 'about'])->name('about');
 Route::get('/careers', [SiteController::class, 'careers'])->name('careers');
 Route::get('/career', [SiteController::class, 'careers'])->name('career');
+Route::post('/careers/apply', [SiteController::class, 'submitCareerApplication'])->name('careers.apply');
 Route::get('/solutions', [SiteController::class, 'solutions'])->name('solutions');
 Route::get('/services', [SiteController::class, 'solutions'])->name('services');
 
