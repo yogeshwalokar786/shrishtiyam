@@ -10,6 +10,7 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+SET FOREIGN_KEY_CHECKS = 0;
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -27,6 +28,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `blogs`
 --
 
+DROP TABLE IF EXISTS `blogs`;
 CREATE TABLE `blogs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `category_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -67,6 +69,7 @@ INSERT INTO `blogs` (`id`, `category_id`, `title`, `slug`, `excerpt`, `content`,
 -- Table structure for table `blog_categories`
 --
 
+DROP TABLE IF EXISTS `blog_categories`;
 CREATE TABLE `blog_categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(100) NOT NULL,
@@ -94,6 +97,7 @@ INSERT INTO `blog_categories` (`id`, `name`, `slug`, `description`, `is_active`,
 -- Table structure for table `cache`
 --
 
+DROP TABLE IF EXISTS `cache`;
 CREATE TABLE `cache` (
   `key` varchar(255) NOT NULL,
   `value` mediumtext NOT NULL,
@@ -106,6 +110,7 @@ CREATE TABLE `cache` (
 -- Table structure for table `cache_locks`
 --
 
+DROP TABLE IF EXISTS `cache_locks`;
 CREATE TABLE `cache_locks` (
   `key` varchar(255) NOT NULL,
   `owner` varchar(255) NOT NULL,
@@ -118,6 +123,7 @@ CREATE TABLE `cache_locks` (
 -- Table structure for table `client_logos`
 --
 
+DROP TABLE IF EXISTS `client_logos`;
 CREATE TABLE `client_logos` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -149,6 +155,7 @@ INSERT INTO `client_logos` (`id`, `name`, `logo_path`, `website_url`, `sort_orde
 -- Table structure for table `enquiries`
 --
 
+DROP TABLE IF EXISTS `enquiries`;
 CREATE TABLE `enquiries` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -174,6 +181,7 @@ CREATE TABLE `enquiries` (
 -- Table structure for table `failed_jobs`
 --
 
+DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `uuid` varchar(255) NOT NULL,
@@ -190,6 +198,7 @@ CREATE TABLE `failed_jobs` (
 -- Table structure for table `jobs`
 --
 
+DROP TABLE IF EXISTS `jobs`;
 CREATE TABLE `jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `queue` varchar(255) NOT NULL,
@@ -206,6 +215,7 @@ CREATE TABLE `jobs` (
 -- Table structure for table `job_batches`
 --
 
+DROP TABLE IF EXISTS `job_batches`;
 CREATE TABLE `job_batches` (
   `id` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -225,6 +235,7 @@ CREATE TABLE `job_batches` (
 -- Table structure for table `media`
 --
 
+DROP TABLE IF EXISTS `media`;
 CREATE TABLE `media` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -265,6 +276,7 @@ INSERT INTO `media` (`id`, `user_id`, `filename`, `original_name`, `mime_type`, 
 -- Table structure for table `migrations`
 --
 
+DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
   `migration` varchar(255) NOT NULL,
@@ -296,6 +308,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- Table structure for table `password_reset_tokens`
 --
 
+DROP TABLE IF EXISTS `password_reset_tokens`;
 CREATE TABLE `password_reset_tokens` (
   `email` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
@@ -308,6 +321,7 @@ CREATE TABLE `password_reset_tokens` (
 -- Table structure for table `policies`
 --
 
+DROP TABLE IF EXISTS `policies`;
 CREATE TABLE `policies` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -335,6 +349,7 @@ INSERT INTO `policies` (`id`, `title`, `slug`, `content`, `meta_description`, `i
 -- Table structure for table `sessions`
 --
 
+DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE `sessions` (
   `id` varchar(255) NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
@@ -364,6 +379,7 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 -- Table structure for table `settings`
 --
 
+DROP TABLE IF EXISTS `settings`;
 CREATE TABLE `settings` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `key` varchar(255) NOT NULL,
@@ -409,6 +425,7 @@ INSERT INTO `settings` (`id`, `key`, `value`, `group`, `type`, `created_at`, `up
 -- Table structure for table `testimonials`
 --
 
+DROP TABLE IF EXISTS `testimonials`;
 CREATE TABLE `testimonials` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `author_name` varchar(255) NOT NULL,
@@ -441,6 +458,7 @@ INSERT INTO `testimonials` (`id`, `author_name`, `author_title`, `company`, `aut
 -- Table structure for table `job_openings`
 --
 
+DROP TABLE IF EXISTS `job_openings`;
 CREATE TABLE `job_openings` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(255) NOT NULL,
@@ -474,6 +492,7 @@ INSERT INTO `job_openings` (`id`, `title`, `slug`, `department`, `location`, `em
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -722,6 +741,7 @@ ALTER TABLE `blogs`
 --
 ALTER TABLE `media`
   ADD CONSTRAINT `media_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+SET FOREIGN_KEY_CHECKS = 1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
