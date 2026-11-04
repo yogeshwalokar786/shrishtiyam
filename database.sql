@@ -287,7 +287,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (10, '2026_09_29_100001_create_blogs_table', 6),
 (11, '2026_09_30_120000_create_settings_table', 7),
 (12, '2026_10_02_100000_create_testimonials_table', 8),
-(13, '2026_10_02_110000_create_client_logos_table', 9);
+(13, '2026_10_02_110000_create_client_logos_table', 9),
+(14, '2026_11_04_000001_create_job_openings_table', 10);
 
 -- --------------------------------------------------------
 
@@ -437,6 +438,39 @@ INSERT INTO `testimonials` (`id`, `author_name`, `author_title`, `company`, `aut
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `job_openings`
+--
+
+CREATE TABLE `job_openings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `department` varchar(255) DEFAULT NULL,
+  `location` varchar(255) NOT NULL DEFAULT 'Nagpur / Pan-India',
+  `employment_type` varchar(255) NOT NULL DEFAULT 'Full-Time',
+  `experience` varchar(255) DEFAULT NULL,
+  `overview` text DEFAULT NULL,
+  `description` longtext DEFAULT NULL,
+  `icon_type` varchar(255) NOT NULL DEFAULT 'compliance',
+  `badge_text` varchar(255) DEFAULT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `sort_order` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `job_openings`
+--
+
+INSERT INTO `job_openings` (`id`, `title`, `slug`, `department`, `location`, `employment_type`, `experience`, `overview`, `description`, `icon_type`, `badge_text`, `is_active`, `sort_order`, `created_at`, `updated_at`) VALUES
+(1, 'EPR & Compliance Advisory', 'epr-compliance-advisory', 'EPR & Compliance Advisory', 'Nagpur HQ', 'Full-time', '2 - 5 Years', 'Auditing, CPCB portal quota allocation, PIBO target fulfillment, and statutory environmental returns filing.', NULL, 'shield', 'Full-time', 1, 1, '2026-11-04 10:00:00', '2026-11-04 10:00:00'),
+(2, 'BioEnergy & Alternative Fuels', 'bioenergy-alternative-fuels', 'BioEnergy & Alternative Fuels', 'Plant Operations • Central India', 'Full-time', '3 - 7 Years', 'Processing agricultural and industrial solid waste into high-CV Refuse Derived Fuel (RDF) and industrial biomass pellets.', NULL, 'flame', 'Full-time', 1, 2, '2026-11-04 10:00:00', '2026-11-04 10:00:00'),
+(3, 'Supply Chain & MRF Management', 'supply-chain-mrf-management', 'Supply Chain & Logistics', 'Regional Hubs • Field Operations', 'Full-time', '2 - 5 Years', 'Direct municipal material recovery facility (MRF) aggregation, waste-worker formalization, and fair pricing mechanisms.', NULL, 'truck', 'Full-time', 1, 3, '2026-11-04 10:00:00', '2026-11-04 10:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -550,6 +584,13 @@ ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
+-- Indexes for table `job_openings`
+--
+ALTER TABLE `job_openings`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `job_openings_slug_unique` (`slug`);
+
+--
 -- Indexes for table `policies`
 --
 ALTER TABLE `policies`
@@ -625,6 +666,12 @@ ALTER TABLE `jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `job_openings`
+--
+ALTER TABLE `job_openings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `media`
 --
 ALTER TABLE `media`
@@ -634,7 +681,7 @@ ALTER TABLE `media`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `policies`

@@ -6,6 +6,7 @@ use App\Http\Controllers\BlogCategoryController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ClientLogoController;
 use App\Http\Controllers\EnquiryController;
+use App\Http\Controllers\JobOpeningController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\SettingController;
@@ -97,6 +98,10 @@ Route::middleware('auth')->group(function () {
         // Client Logos Management
         Route::patch('/client-logos/{client_logo}/toggle-status', [ClientLogoController::class, 'toggleStatus'])->name('client-logos.toggle-status');
         Route::resource('client-logos', ClientLogoController::class)->except(['show']);
+
+        // Careers & Job Openings Management
+        Route::patch('/jobs/{job}/toggle-status', [JobOpeningController::class, 'toggleStatus'])->name('jobs.toggle-status');
+        Route::resource('jobs', JobOpeningController::class)->except(['show']);
 
         // Blog Posts & Blog Categories Management
         Route::resource('blogs', BlogController::class);

@@ -6,6 +6,7 @@ use App\Models\Blog;
 use App\Models\BlogCategory;
 use App\Models\ClientLogo;
 use App\Models\Enquiry;
+use App\Models\JobOpening;
 use App\Models\Policy;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
@@ -54,7 +55,55 @@ class SiteController extends Controller
      */
     public function careers()
     {
-        return view('site.careers');
+        $jobs = collect();
+
+        if (Schema::hasTable('job_openings')) {
+            $jobs = JobOpening::active()->ordered()->get();
+        }
+
+        // Fallback default roles if table not yet populated
+        if ($jobs->isEmpty()) {
+            $jobs = collect([
+                new JobOpening([
+                    'title' => 'EPR & Compliance Advisory',
+                    'slug' => 'epr-compliance-advisory',
+                    'department' => 'EPR & Compliance Advisory',
+                    'location' => 'Nagpur HQ',
+                    'employment_type' => 'Full-time',
+                    'experience' => '2 - 5 Years',
+                    'overview' => 'Auditing, CPCB portal quota allocation, PIBO target fulfillment, and statutory environmental returns filing.',
+                    'icon_type' => 'shield',
+                    'badge_text' => 'Nagpur HQ • Full-time',
+                    'sort_order' => 1,
+                ]),
+                new JobOpening([
+                    'title' => 'BioEnergy & Alternative Fuels',
+                    'slug' => 'bioenergy-alternative-fuels',
+                    'department' => 'BioEnergy & Alternative Fuels',
+                    'location' => 'Plant Operations • Central India',
+                    'employment_type' => 'Full-time',
+                    'experience' => '3 - 7 Years',
+                    'overview' => 'Processing agricultural and industrial solid waste into high-CV Refuse Derived Fuel (RDF) and industrial biomass pellets.',
+                    'icon_type' => 'flame',
+                    'badge_text' => 'Plant Operations • Central India',
+                    'sort_order' => 2,
+                ]),
+                new JobOpening([
+                    'title' => 'Supply Chain & MRF Management',
+                    'slug' => 'supply-chain-mrf-management',
+                    'department' => 'Supply Chain & Logistics',
+                    'location' => 'Regional Hubs • Field Operations',
+                    'employment_type' => 'Full-time',
+                    'experience' => '2 - 5 Years',
+                    'overview' => 'Direct municipal material recovery facility (MRF) aggregation, waste-worker formalization, and fair pricing mechanisms.',
+                    'icon_type' => 'truck',
+                    'badge_text' => 'Regional Hubs • Field Operations',
+                    'sort_order' => 3,
+                ]),
+            ]);
+        }
+
+        return view('site.careers', compact('jobs'));
     }
 
     /**

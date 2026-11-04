@@ -163,5 +163,8 @@ class DatabaseSeeder extends Seeder
 
         // 7. Seed client logos
         $this->call(ClientLogoSeeder::class);
+
+        // 8. Seed job openings for careers page
+        $this->call(JobOpeningSeeder::class);
     }
 }

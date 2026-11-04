@@ -116,6 +116,17 @@
                                 </div>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.jobs.index') }}" class="nav-link {{ request()->routeIs('admin.jobs.*') ? 'active' : '' }}">
+                                <div class="nav-link-content">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                                        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                                    </svg>
+                                    <span>Careers / Jobs</span>
+                                </div>
+                            </a>
+                        </li>
                         <li class="nav-item-dropdown {{ request()->routeIs('admin.blogs.*') || request()->routeIs('admin.blog-categories.*') ? 'open' : '' }}">
                             <button type="button" class="nav-link nav-dropdown-toggle {{ request()->routeIs('admin.blogs.*') || request()->routeIs('admin.blog-categories.*') ? 'active' : '' }}" onclick="toggleNavDropdown(this)">
                                 <div class="nav-link-content">
