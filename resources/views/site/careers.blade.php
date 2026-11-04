@@ -6,42 +6,48 @@
 @push('styles')
 <style>
   .career-hero-btn {
-    background: rgba(255, 255, 255, 0.14) !important;
-    color: #ffffff !important;
-    border: 1.5px solid rgba(255, 255, 255, 0.5) !important;
-    backdrop-filter: blur(8px);
-    font-weight: 700;
-    transition: all 0.25s ease;
-  }
-  .career-hero-btn:hover {
     background: #ffffff !important;
     color: #05261b !important;
-    border-color: #ffffff !important;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    border: 1.5px solid #ffffff !important;
+    font-weight: 700 !important;
+    border-radius: var(--radius-full) !important;
+    padding: 12px 26px !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .career-hero-btn:hover {
+    background: #f1f5f9 !important;
+    color: #37704b !important;
+    border-color: #f1f5f9 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25) !important;
   }
 
   .career-talent-btn {
     background: #ffffff !important;
     color: #05261b !important;
     border: 1.5px solid #ffffff !important;
-    font-weight: 700;
-    white-space: nowrap;
-    padding: 12px 26px;
-    border-radius: 10px;
-    transition: all 0.25s ease;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+    padding: 12px 26px !important;
+    border-radius: var(--radius-full) !important;
+    transition: all 0.25s ease !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2) !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
   }
   .career-talent-btn:hover {
     background: #669a2b !important;
     color: #ffffff !important;
     border-color: #669a2b !important;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(102, 154, 43, 0.4);
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 22px rgba(102, 154, 43, 0.4) !important;
   }
 </style>
 @endpush
@@ -64,9 +70,9 @@
           <a href="#open-roles" class="btn btn-primary" style="background: #669a2b; border-color: #669a2b;">Explore Opportunities ↓</a>
           <a href="#apply-form" 
              class="btn career-hero-btn" 
-             style="background: rgba(255, 255, 255, 0.14); color: #ffffff; border: 1.5px solid rgba(255, 255, 255, 0.5); backdrop-filter: blur(8px); padding: 13px 26px; font-weight: 700; text-decoration: none; border-radius: var(--radius-sm); transition: all 0.25s ease;"
-             onmouseover="this.style.background='#ffffff'; this.style.color='#05261b'; this.style.borderColor='#ffffff';"
-             onmouseout="this.style.background='rgba(255, 255, 255, 0.14)'; this.style.color='#ffffff'; this.style.borderColor='rgba(255, 255, 255, 0.5)';">
+             style="background: #ffffff; color: #05261b; border: 1.5px solid #ffffff; padding: 13px 28px; font-weight: 700; text-decoration: none; border-radius: var(--radius-full); transition: all 0.25s ease; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);"
+             onmouseover="this.style.background='#f1f5f9'; this.style.color='#37704b'; this.style.borderColor='#f1f5f9';"
+             onmouseout="this.style.background='#ffffff'; this.style.color='#05261b'; this.style.borderColor='#ffffff';">
             Submit Resume Directly ↓
           </a>
         </div>
@@ -326,7 +332,7 @@
           <div>
             <a href="tel:{{ setting('contact_phone', '+917020784898') }}" 
                class="btn career-talent-btn" 
-               style="background: #ffffff; color: #05261b; border: 1.5px solid #ffffff; font-weight: 700; white-space: nowrap; font-size: 0.92rem; padding: 12px 24px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.25s ease; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);"
+               style="background: #ffffff; color: #05261b; border: 1.5px solid #ffffff; font-weight: 700; white-space: nowrap; font-size: 0.92rem; padding: 12px 28px; border-radius: var(--radius-full); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.25s ease; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);"
                onmouseover="this.style.background='#669a2b'; this.style.color='#ffffff'; this.style.borderColor='#669a2b';"
                onmouseout="this.style.background='#ffffff'; this.style.color='#05261b'; this.style.borderColor='#ffffff';">
               <span>Call Talent Desk</span>
