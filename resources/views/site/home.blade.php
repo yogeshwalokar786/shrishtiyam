@@ -503,6 +503,85 @@
     </div>
   </section>
 
+  <!-- Client Logos Running Marquee Strip -->
+  @php
+    $displayLogos = (isset($clientLogos) && $clientLogos->isNotEmpty()) ? $clientLogos : collect([
+      new \App\Models\ClientLogo(['name' => 'Bisleri', 'logo_path' => '/assets/logos/logo-bisleri.svg', 'is_active' => true]),
+      new \App\Models\ClientLogo(['name' => 'Blue Star', 'logo_path' => '/assets/logos/logo-bluestar.svg', 'is_active' => true]),
+      new \App\Models\ClientLogo(['name' => 'Bosch', 'logo_path' => '/assets/logos/logo-bosch.svg', 'is_active' => true]),
+      new \App\Models\ClientLogo(['name' => 'Castrol', 'logo_path' => '/assets/logos/logo-castrol.svg', 'is_active' => true]),
+      new \App\Models\ClientLogo(['name' => 'Dabur', 'logo_path' => '/assets/logos/logo-dabur.svg', 'is_active' => true]),
+      new \App\Models\ClientLogo(['name' => 'Finolex', 'logo_path' => '/assets/logos/logo-finolex.svg', 'is_active' => true]),
+      new \App\Models\ClientLogo(['name' => 'Aura Beverages', 'logo_path' => '/assets/logos/logo-aura.png', 'is_active' => true]),
+      new \App\Models\ClientLogo(['name' => 'EcoPack Global', 'logo_path' => '/assets/logos/logo-ecopack.png', 'is_active' => true]),
+      new \App\Models\ClientLogo(['name' => 'Nexus Automotive', 'logo_path' => '/assets/logos/logo-nexus.png', 'is_active' => true]),
+      new \App\Models\ClientLogo(['name' => 'Solis Homecare', 'logo_path' => '/assets/logos/logo-solis.png', 'is_active' => true]),
+      new \App\Models\ClientLogo(['name' => 'Verdia Foods', 'logo_path' => '/assets/logos/logo-verdia.png', 'is_active' => true]),
+    ]);
+
+    // Ensure at least 10 items for a continuous, seamless infinite loop
+    $marqueeSet = $displayLogos;
+    if ($marqueeSet->count() > 0) {
+      while ($marqueeSet->count() < 10) {
+        $marqueeSet = $marqueeSet->concat($displayLogos);
+      }
+    }
+  @endphp
+
+  <section class="marquee-section" aria-label="Our Trusted Clients & Brand Partners">
+    <div class="container">
+      <div class="marquee-header">
+        <div class="section-tag" style="display: inline-flex; margin-bottom: 8px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>Trusted Industry Network</span>
+        </div>
+        <h3 style="font-size: clamp(1.15rem, 2.2vw, 1.45rem); font-weight: 800; color: var(--text-main); margin: 0; font-family: var(--font-heading); letter-spacing: -0.01em;">
+          Trusted by Leading Brands &amp; Industrial Pioneers
+        </h3>
+      </div>
+    </div>
+
+    <div class="marquee-container">
+      <div class="marquee-track">
+        {{-- Set 1 of marquee items --}}
+        @foreach($marqueeSet as $logo)
+          <div class="marquee-item">
+            @if(!empty($logo->website_url))
+              <a href="{{ $logo->website_url }}" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit;">
+                <img src="{{ $logo->logo_url ?? $logo->logo_path }}" alt="{{ $logo->name }}" class="marquee-logo-img" loading="lazy" style="height: 34px; max-width: 120px; width: auto; object-fit: contain;">
+                <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); white-space: nowrap;">{{ $logo->name }}</span>
+              </a>
+            @else
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <img src="{{ $logo->logo_url ?? $logo->logo_path }}" alt="{{ $logo->name }}" class="marquee-logo-img" loading="lazy" style="height: 34px; max-width: 120px; width: auto; object-fit: contain;">
+                <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); white-space: nowrap;">{{ $logo->name }}</span>
+              </div>
+            @endif
+          </div>
+        @endforeach
+
+        {{-- Set 2 for seamless infinite marquee loop --}}
+        @foreach($marqueeSet as $logo)
+          <div class="marquee-item" aria-hidden="true">
+            @if(!empty($logo->website_url))
+              <a href="{{ $logo->website_url }}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit;">
+                <img src="{{ $logo->logo_url ?? $logo->logo_path }}" alt="{{ $logo->name }}" class="marquee-logo-img" loading="lazy" style="height: 34px; max-width: 120px; width: auto; object-fit: contain;">
+                <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); white-space: nowrap;">{{ $logo->name }}</span>
+              </a>
+            @else
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <img src="{{ $logo->logo_url ?? $logo->logo_path }}" alt="{{ $logo->name }}" class="marquee-logo-img" loading="lazy" style="height: 34px; max-width: 120px; width: auto; object-fit: contain;">
+                <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); white-space: nowrap;">{{ $logo->name }}</span>
+              </div>
+            @endif
+          </div>
+        @endforeach
+      </div>
+    </div>
+  </section>
+
   <!-- About Us Section: Building a Circular Bharat -->
   <section class="section about-us-section" id="aboutUs">
     <div class="container" style="max-width: 1300px;">

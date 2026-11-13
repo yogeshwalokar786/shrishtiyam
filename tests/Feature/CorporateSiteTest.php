@@ -17,6 +17,30 @@ class CorporateSiteTest extends TestCase
         $response->assertSee('CircuFlow');
     }
 
+    public function test_homepage_displays_client_logos_marquee(): void
+    {
+        \App\Models\ClientLogo::create([
+            'name' => 'Adani Green Energy',
+            'logo_path' => '/assets/logos/logo-adani.png',
+            'website_url' => 'https://example.com/adani',
+            'sort_order' => 1,
+            'is_active' => true,
+        ]);
+
+        \App\Models\ClientLogo::create([
+            'name' => 'Hidden Archived Partner',
+            'logo_path' => '/assets/logos/logo-hidden.png',
+            'sort_order' => 99,
+            'is_active' => false,
+        ]);
+
+        $response = $this->get('/');
+        $response->assertStatus(200);
+        $response->assertSee('marquee-section');
+        $response->assertSee('Adani Green Energy');
+        $response->assertDontSee('Hidden Archived Partner');
+    }
+
     public function test_corporate_about_page_loads()
     {
         $response = $this->get('/about');

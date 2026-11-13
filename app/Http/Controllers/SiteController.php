@@ -36,8 +36,8 @@ class SiteController extends Controller
      */
     public function home()
     {
-        $testimonials = Testimonial::active()->get();
-        $clientLogos = ClientLogo::active()->get();
+        $testimonials = Schema::hasTable('testimonials') ? Testimonial::active()->get() : collect();
+        $clientLogos = Schema::hasTable('client_logos') ? ClientLogo::active()->get() : collect();
 
         return view('site.home', compact('testimonials', 'clientLogos'));
     }
