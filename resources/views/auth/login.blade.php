@@ -95,7 +95,7 @@
                 <!-- Remember Me -->
                 <div style="margin-bottom: 24px;">
                     <label class="form-check">
-                        <input type="checkbox" name="remember" id="remember" checked>
+                        <input type="checkbox" name="remember" id="remember">
                         <span>Remember session</span>
                     </label>
                 </div>
