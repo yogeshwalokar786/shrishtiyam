@@ -545,35 +545,31 @@
 
     <div class="marquee-container">
       <div class="marquee-track">
-        {{-- Set 1 of marquee items --}}
+        {{-- Set 1 of marquee items (Logos Only) --}}
         @foreach($marqueeSet as $logo)
-          <div class="marquee-item">
+          <div class="marquee-item" title="{{ $logo->name }}" style="padding: 10px 24px; min-width: 140px; justify-content: center;">
             @if(!empty($logo->website_url))
-              <a href="{{ $logo->website_url }}" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit;">
-                <img src="{{ $logo->logo_url ?? $logo->logo_path }}" alt="{{ $logo->name }}" class="marquee-logo-img" loading="lazy" style="height: 34px; max-width: 120px; width: auto; object-fit: contain;">
-                <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); white-space: nowrap;">{{ $logo->name }}</span>
+              <a href="{{ $logo->website_url }}" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                <img src="{{ $logo->logo_url ?? $logo->logo_path }}" alt="{{ $logo->name }}" title="{{ $logo->name }}" class="marquee-logo-img" loading="lazy" style="height: 40px; max-width: 140px; width: auto; object-fit: contain;">
               </a>
             @else
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <img src="{{ $logo->logo_url ?? $logo->logo_path }}" alt="{{ $logo->name }}" class="marquee-logo-img" loading="lazy" style="height: 34px; max-width: 120px; width: auto; object-fit: contain;">
-                <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); white-space: nowrap;">{{ $logo->name }}</span>
+              <div style="display: flex; align-items: center; justify-content: center;">
+                <img src="{{ $logo->logo_url ?? $logo->logo_path }}" alt="{{ $logo->name }}" title="{{ $logo->name }}" class="marquee-logo-img" loading="lazy" style="height: 40px; max-width: 140px; width: auto; object-fit: contain;">
               </div>
             @endif
           </div>
         @endforeach
 
-        {{-- Set 2 for seamless infinite marquee loop --}}
+        {{-- Set 2 for seamless infinite marquee loop (Logos Only) --}}
         @foreach($marqueeSet as $logo)
-          <div class="marquee-item" aria-hidden="true">
+          <div class="marquee-item" aria-hidden="true" title="{{ $logo->name }}" style="padding: 10px 24px; min-width: 140px; justify-content: center;">
             @if(!empty($logo->website_url))
-              <a href="{{ $logo->website_url }}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit;">
-                <img src="{{ $logo->logo_url ?? $logo->logo_path }}" alt="{{ $logo->name }}" class="marquee-logo-img" loading="lazy" style="height: 34px; max-width: 120px; width: auto; object-fit: contain;">
-                <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); white-space: nowrap;">{{ $logo->name }}</span>
+              <a href="{{ $logo->website_url }}" target="_blank" rel="noopener noreferrer" tabindex="-1" style="display: flex; align-items: center; justify-content: center; text-decoration: none;">
+                <img src="{{ $logo->logo_url ?? $logo->logo_path }}" alt="{{ $logo->name }}" title="{{ $logo->name }}" class="marquee-logo-img" loading="lazy" style="height: 40px; max-width: 140px; width: auto; object-fit: contain;">
               </a>
             @else
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <img src="{{ $logo->logo_url ?? $logo->logo_path }}" alt="{{ $logo->name }}" class="marquee-logo-img" loading="lazy" style="height: 34px; max-width: 120px; width: auto; object-fit: contain;">
-                <span style="font-size: 0.9rem; font-weight: 700; color: var(--text-main); white-space: nowrap;">{{ $logo->name }}</span>
+              <div style="display: flex; align-items: center; justify-content: center;">
+                <img src="{{ $logo->logo_url ?? $logo->logo_path }}" alt="{{ $logo->name }}" title="{{ $logo->name }}" class="marquee-logo-img" loading="lazy" style="height: 40px; max-width: 140px; width: auto; object-fit: contain;">
               </div>
             @endif
           </div>
