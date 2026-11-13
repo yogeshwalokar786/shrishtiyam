@@ -63,7 +63,7 @@ class AdminAuthTest extends TestCase
         $dashResponse->assertSee('Welcome back');
         $dashResponse->assertSee('Messages');
         $dashResponse->assertSee('Media');
-        $dashResponse->assertSee('Sitemap');
+        $dashResponse->assertSee('Job Openings');
         $dashResponse->assertSee('Quick Shortcuts');
     }
 

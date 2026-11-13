@@ -54,6 +54,7 @@ class AdminController extends Controller
             'new_messages_count' => \App\Models\Enquiry::where('status', 'new')->count(),
             'policies_count' => \App\Models\Policy::count(),
             'testimonials_count' => \App\Models\Testimonial::count(),
+            'jobs_count' => class_exists(\App\Models\JobOpening::class) ? \App\Models\JobOpening::count() : 0,
         ];
 
         $recentEnquiries = \App\Models\Enquiry::latest()->take(5)->get();

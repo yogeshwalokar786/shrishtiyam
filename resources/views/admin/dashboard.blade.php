@@ -111,27 +111,26 @@
         </div>
     </div>
 
-    <!-- Sitemap Card -->
+    <!-- Job Openings / Careers Card -->
     <div class="card" style="padding: 22px; border-left: 4px solid #7c3aed;">
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
             <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
-                Sitemap
+                Job Openings
             </div>
             <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(124, 58, 237, 0.1); color: #7c3aed; display: flex; align-items: center; justify-content: center;">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                    <polyline points="2 17 12 22 22 17"></polyline>
-                    <polyline points="2 12 12 17 22 12"></polyline>
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                 </svg>
             </div>
         </div>
         <div style="font-size: 2rem; font-weight: 800; color: var(--text-main); margin-bottom: 6px;">
-            Active
+            {{ $metrics['jobs_count'] ?? 0 }}
         </div>
         <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.84rem;">
-            <span style="color: var(--text-muted);">Indexed pages</span>
-            <a href="{{ route('admin.sitemap.index') }}" style="color: #7c3aed; font-weight: 600; text-decoration: none;">
-                Open &rarr;
+            <span style="color: var(--text-muted);">Career roles</span>
+            <a href="{{ route('admin.jobs.index') }}" style="color: #7c3aed; font-weight: 600; text-decoration: none;">
+                Manage &rarr;
             </a>
         </div>
     </div>
@@ -224,13 +223,12 @@
                 <span style="font-weight: 600;">Upload Media</span>
             </a>
 
-            <a href="{{ route('admin.sitemap.index') }}" class="btn btn-secondary" style="display: flex; align-items: center; justify-content: flex-start; gap: 10px; padding: 10px 14px; text-decoration: none;">
+            <a href="{{ route('admin.jobs.index') }}" class="btn btn-secondary" style="display: flex; align-items: center; justify-content: flex-start; gap: 10px; padding: 10px 14px; text-decoration: none;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                    <polyline points="2 17 12 22 22 17"></polyline>
-                    <polyline points="2 12 12 17 22 12"></polyline>
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
                 </svg>
-                <span style="font-weight: 600;">Update Sitemap</span>
+                <span style="font-weight: 600;">Manage Careers</span>
             </a>
 
             <a href="{{ route('admin.settings.index') }}" class="btn btn-secondary" style="display: flex; align-items: center; justify-content: flex-start; gap: 10px; padding: 10px 14px; text-decoration: none;">

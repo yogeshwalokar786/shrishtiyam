@@ -116,13 +116,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/media/{medium}/download', [MediaController::class, 'download'])->name('media.download');
         Route::delete('/media/{medium}', [MediaController::class, 'destroy'])->name('media.destroy');
 
-        // Sitemap Generator Routes
-        Route::get('/sitemap', [SitemapController::class, 'index'])->name('sitemap.index');
-        Route::post('/sitemap/generate', [SitemapController::class, 'generate'])->name('sitemap.generate');
-        Route::post('/sitemap/add', [SitemapController::class, 'addUrl'])->name('sitemap.add');
-        Route::delete('/sitemap/{id}', [SitemapController::class, 'deleteUrl'])->name('sitemap.delete');
-        Route::get('/sitemap/download', [SitemapController::class, 'download'])->name('sitemap.download');
-
         // Client Enquiries & Consultation Requests
         Route::get('/enquiries', [EnquiryController::class, 'index'])->name('enquiries.index');
         Route::get('/enquiries/{id}', [EnquiryController::class, 'show'])->name('enquiries.show');

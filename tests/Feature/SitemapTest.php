@@ -18,10 +18,6 @@ class SitemapTest extends TestCase
     {
         parent::setUp();
 
-        if (File::exists(storage_path('app/sitemap_entries.json'))) {
-            File::delete(storage_path('app/sitemap_entries.json'));
-        }
-
         $this->admin = User::create([
             'name' => 'Alexander Vance',
             'email' => 'admin@admin.com',
@@ -31,10 +27,6 @@ class SitemapTest extends TestCase
 
     protected function tearDown(): void
     {
-        if (File::exists(storage_path('app/sitemap_entries.json'))) {
-            File::delete(storage_path('app/sitemap_entries.json'));
-        }
-
         parent::tearDown();
     }
 
@@ -48,54 +40,10 @@ class SitemapTest extends TestCase
         $response->assertSee('<priority>', false);
     }
 
-    public function test_guest_cannot_access_sitemap_admin_panel(): void
+    public function test_admin_sitemap_page_is_removed(): void
     {
-        $response = $this->get('/admin/sitemap');
-        $response->assertRedirect('/login');
-    }
-
-    public function test_admin_can_view_sitemap_generator_page(): void
-    {
+        // Admin sitemap routes are removed, should return 404
         $response = $this->actingAs($this->admin)->get('/admin/sitemap');
-        $response->assertStatus(200);
-        $response->assertSee('Sitemap');
-        $response->assertSee('Indexed Pages');
-        $response->assertSee('Add Page');
-        $response->assertSee('Regenerate Sitemap');
-    }
-
-    public function test_admin_can_regenerate_sitemap(): void
-    {
-        $response = $this->actingAs($this->admin)->post('/admin/sitemap/generate');
-        $response->assertRedirect('/admin/sitemap');
-        $response->assertSessionHas('success');
-
-        $this->assertTrue(File::exists(public_path('sitemap.xml')));
-        $content = File::get(public_path('sitemap.xml'));
-        $this->assertStringContainsString('<urlset', $content);
-    }
-
-    public function test_admin_can_add_custom_url_to_sitemap(): void
-    {
-        $response = $this->actingAs($this->admin)->post('/admin/sitemap/add', [
-            'url' => '/investor-relations/q3-results',
-            'title' => 'Q3 Financial Earnings Report',
-            'priority' => '0.8',
-            'changefreq' => 'monthly',
-        ]);
-
-        $response->assertRedirect('/admin/sitemap');
-        $response->assertSessionHas('success');
-
-        // Verify public sitemap includes the new URL
-        $sitemapContent = File::get(public_path('sitemap.xml'));
-        $this->assertStringContainsString('investor-relations/q3-results', $sitemapContent);
-    }
-
-    public function test_admin_can_download_sitemap_xml(): void
-    {
-        $response = $this->actingAs($this->admin)->get('/admin/sitemap/download');
-        $response->assertStatus(200);
-        $response->assertHeader('content-disposition');
+        $response->assertStatus(404);
     }
 }
