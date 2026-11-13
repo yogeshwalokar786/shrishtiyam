@@ -14,7 +14,7 @@ class CorporateSiteTest extends TestCase
     {
         $response = $this->get('/');
         $response->assertStatus(200);
-        $response->assertSee('CircuFlow');
+        $response->assertSee('SHRISTIYAM');
     }
 
     public function test_homepage_displays_client_logos_marquee(): void
@@ -45,28 +45,28 @@ class CorporateSiteTest extends TestCase
     {
         $response = $this->get('/about');
         $response->assertStatus(200);
-        $response->assertSee('CircuFlow');
+        $response->assertSee('SHRISTIYAM');
     }
 
     public function test_corporate_solutions_page_loads()
     {
         $response = $this->get('/solutions');
         $response->assertStatus(200);
-        $response->assertSee('CircuFlow');
+        $response->assertSee('SHRISTIYAM');
     }
 
     public function test_corporate_products_catalog_loads()
     {
         $response = $this->get('/products');
         $response->assertStatus(200);
-        $response->assertSee('CircuFlow');
+        $response->assertSee('SHRISTIYAM');
     }
 
     public function test_corporate_single_product_page_loads()
     {
         $response = $this->get('/product-single');
         $response->assertStatus(200);
-        $response->assertSee('CircuFlow');
+        $response->assertSee('SHRISTIYAM');
     }
 
     public function test_corporate_single_service_page_loads()
@@ -83,21 +83,21 @@ class CorporateSiteTest extends TestCase
     {
         $response = $this->get('/blogs');
         $response->assertStatus(200);
-        $response->assertSee('CircuFlow');
+        $response->assertSee('SHRISTIYAM');
     }
 
     public function test_corporate_single_blog_page_loads()
     {
         $response = $this->get('/blog-single');
         $response->assertStatus(200);
-        $response->assertSee('CircuFlow');
+        $response->assertSee('SHRISTIYAM');
     }
 
     public function test_corporate_contact_page_loads()
     {
         $response = $this->get('/contact');
         $response->assertStatus(200);
-        $response->assertSee('CircuFlow');
+        $response->assertSee('SHRISTIYAM');
     }
 
     public function test_sitemap_xml_remains_valid()
