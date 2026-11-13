@@ -32,6 +32,21 @@ class AdminAuthTest extends TestCase
         $response->assertSee('Sign In');
     }
 
+    public function test_already_authenticated_admin_visiting_login_page_is_redirected_to_dashboard(): void
+    {
+        $response = $this->actingAs($this->admin)->get('/login');
+        $response->assertRedirect('/admin/dashboard');
+    }
+
+    public function test_guest_accessing_admin_is_redirected_to_login(): void
+    {
+        $response = $this->get('/admin/dashboard');
+        $response->assertRedirect('/login');
+
+        $aliasResponse = $this->get('/admin');
+        $aliasResponse->assertRedirect('/login');
+    }
+
     public function test_admin_can_login_and_access_dashboard(): void
     {
         $response = $this->post('/login', [

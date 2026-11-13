@@ -71,6 +71,7 @@ Route::middleware('guest')->group(function () {
 // Protected Admin Routes
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::redirect('/admin', '/admin/dashboard');
 
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
