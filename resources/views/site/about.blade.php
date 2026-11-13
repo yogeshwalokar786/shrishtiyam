@@ -1,10 +1,39 @@
 @extends('layouts.site')
 
-@section('title', 'About Us | India’s Plastic Paradox & Our Vision | ' . setting('site_name', 'SHRISTIYAM'))
-@section('meta_description', 'Learn about Shristiyam\'s roots, vision, and commitment to turning waste into resources. Headquartered in Nagpur, building a circular future where waste becomes value.')
+@php
+    $aboutTitle = setting('about_meta_title') ?: ('About Us | India’s Plastic Paradox & Our Vision | ' . setting('site_name', 'SHRISTIYAM'));
+    $aboutDesc = setting('about_meta_description') ?: 'Learn about SHRISTIYAM roots, vision, and commitment to turning waste into resources. Headquartered in Nagpur, building a circular future where waste becomes value.';
+    $aboutKeywords = setting('about_meta_keywords') ?: 'about shristiyam, environmental compliance, EPR leaders, waste management india, sustainable solutions';
+    $aboutCanonical = setting('about_canonical_url') ?: url('/about');
+    $aboutOgImage = setting('about_og_image') ?: (setting('site_logo') ?: asset('assets/images/about-hero-bottle.webp'));
+    if (!Str::startsWith($aboutOgImage, ['http://', 'https://'])) {
+        $aboutOgImage = asset(ltrim($aboutOgImage, '/'));
+    }
+@endphp
+
+@section('title', $aboutTitle)
+@section('meta_description', $aboutDesc)
 
 @section('head')
-    <link rel="canonical" href="{{ url('/about') }}">
+    @if($aboutKeywords)
+        <meta name="keywords" content="{{ $aboutKeywords }}">
+    @endif
+    <link rel="canonical" href="{{ $aboutCanonical }}">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ setting('site_name', 'SHRISTIYAM') }}">
+    <meta property="og:url" content="{{ $aboutCanonical }}">
+    <meta property="og:title" content="{{ $aboutTitle }}">
+    <meta property="og:description" content="{{ $aboutDesc }}">
+    <meta property="og:image" content="{{ $aboutOgImage }}">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $aboutTitle }}">
+    <meta name="twitter:description" content="{{ $aboutDesc }}">
+    <meta name="twitter:image" content="{{ $aboutOgImage }}">
+
     <script type="application/ld+json">
     {
       "@@context": "https://schema.org",
@@ -13,7 +42,7 @@
       "alternateName": "{{ setting('site_name', 'SHRISTIYAM') }}",
       "url": "{{ url('/') }}",
       "logo": "{{ asset('assets/logos/logo.png') }}",
-      "description": "Headquartered in Nagpur, Shristiyam operates at the intersection of industry, resource recovery, and environmental responsibility.",
+      "description": "Headquartered in Nagpur, SHRISTIYAM operates at the intersection of industry, resource recovery, and environmental responsibility.",
       "address": {
         "@@type": "PostalAddress",
         "addressLocality": "Nagpur",

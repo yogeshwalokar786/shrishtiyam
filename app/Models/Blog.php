@@ -27,6 +27,14 @@ class Blog extends Model
         'views_count',
         'meta_title',
         'meta_description',
+        'meta_keywords',
+        'canonical_url',
+        'og_title',
+        'og_description',
+        'og_image',
+        'schema_type',
+        'robots_index',
+        'robots_follow',
     ];
 
     protected $casts = [
@@ -182,5 +190,71 @@ class Blog extends Model
     {
         $date = $this->published_at ?? $this->created_at ?? now();
         return $date->format('M d, Y');
+    }
+
+    /**
+     * Fallback and normalized SEO accessors.
+     */
+    public function getEffectiveMetaTitleAttribute(): string
+    {
+        return !empty($this->meta_title) ? $this->meta_title : ($this->title ?? '');
+    }
+
+    public function getEffectiveMetaDescriptionAttribute(): string
+    {
+        if (!empty($this->meta_description)) {
+            return $this->meta_description;
+        }
+        if (!empty($this->excerpt)) {
+            return Str::limit(trim(strip_tags(html_entity_decode($this->excerpt, ENT_QUOTES, 'UTF-8'))), 160);
+        }
+        return Str::limit(trim(strip_tags(html_entity_decode($this->content ?? '', ENT_QUOTES, 'UTF-8'))), 160);
+    }
+
+    public function getEffectiveOgTitleAttribute(): string
+    {
+        return !empty($this->og_title) ? $this->og_title : $this->effective_meta_title;
+    }
+
+    public function getEffectiveOgDescriptionAttribute(): string
+    {
+        return !empty($this->og_description) ? $this->og_description : $this->effective_meta_description;
+    }
+
+    public function getEffectiveOgImageAttribute(): string
+    {
+        if (!empty($this->og_image)) {
+            if (Str::startsWith($this->og_image, ['http://', 'https://'])) {
+                return $this->og_image;
+            }
+            if (Str::startsWith($this->og_image, ['/storage/', 'storage/'])) {
+                return asset(ltrim($this->og_image, '/'));
+            }
+            if (Str::startsWith($this->og_image, ['/media/', 'media/'])) {
+                return asset('storage/' . ltrim($this->og_image, '/'));
+            }
+            return asset(ltrim($this->og_image, '/'));
+        }
+        return $this->image_url;
+    }
+
+    public function getEffectiveCanonicalUrlAttribute(): string
+    {
+        if (!empty($this->canonical_url)) {
+            return $this->canonical_url;
+        }
+        return route('blog.show', $this->slug);
+    }
+
+    public function getEffectiveSchemaTypeAttribute(): string
+    {
+        return !empty($this->schema_type) ? $this->schema_type : 'Article';
+    }
+
+    public function getRobotsDirectiveAttribute(): string
+    {
+        $index = !empty($this->robots_index) ? $this->robots_index : 'index';
+        $follow = !empty($this->robots_follow) ? $this->robots_follow : 'follow';
+        return "{$index}, {$follow}";
     }
 }

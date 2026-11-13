@@ -1,7 +1,86 @@
 @extends('layouts.site')
 
-@section('title', $blog->meta_title ?: ($blog->title . ' | CircuFlow Blog'))
-@section('meta_description', $blog->meta_description ?: Str::limit(strip_tags($blog->excerpt ?: $blog->content), 155))
+@php
+    $pageTitle = $blog->effective_meta_title . ' | ' . setting('site_name', 'SHRISTIYAM');
+    $pageDesc = $blog->effective_meta_description;
+    $canonicalUrl = $blog->effective_canonical_url;
+    $ogTitle = $blog->effective_og_title;
+    $ogDesc = $blog->effective_og_description;
+    $ogImage = $blog->effective_og_image;
+    $schemaType = $blog->effective_schema_type;
+    $robotsDirective = $blog->robots_directive;
+@endphp
+
+@section('title', $pageTitle)
+@section('meta_description', $pageDesc)
+
+@section('head')
+    @if($blog->meta_keywords)
+        <meta name="keywords" content="{{ $blog->meta_keywords }}">
+    @endif
+    <link rel="canonical" href="{{ $canonicalUrl }}">
+    <meta name="robots" content="{{ $robotsDirective }}">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="{{ setting('site_name', 'SHRISTIYAM') }}">
+    <meta property="og:url" content="{{ $canonicalUrl }}">
+    <meta property="og:title" content="{{ $ogTitle }}">
+    <meta property="og:description" content="{{ $ogDesc }}">
+    @if($ogImage)
+        <meta property="og:image" content="{{ $ogImage }}">
+    @endif
+    @if($blog->published_at)
+        <meta property="article:published_time" content="{{ $blog->published_at->toIso8601String() }}">
+    @endif
+    @if($blog->updated_at)
+        <meta property="article:modified_time" content="{{ $blog->updated_at->toIso8601String() }}">
+    @endif
+    @if($blog->author_name)
+        <meta property="article:author" content="{{ $blog->author_name }}">
+    @endif
+    @if($blog->category)
+        <meta property="article:section" content="{{ $blog->category->name }}">
+    @endif
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $ogTitle }}">
+    <meta name="twitter:description" content="{{ $ogDesc }}">
+    @if($ogImage)
+        <meta name="twitter:image" content="{{ $ogImage }}">
+    @endif
+
+    <!-- JSON-LD Structured Data Schema -->
+    <script type="application/ld+json">
+    {!! json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => $schemaType,
+        'headline' => $blog->title,
+        'description' => $pageDesc,
+        'image' => $ogImage ?: asset('assets/images/blog-rpet-bottles.jpg'),
+        'author' => [
+            '@type' => 'Person',
+            'name' => $blog->author_name ?: 'Admin',
+            'jobTitle' => $blog->author_role ?: 'Author',
+        ],
+        'publisher' => [
+            '@type' => 'Organization',
+            'name' => setting('company_legal_name', 'SHRISTIYAM COMPLIANCE SOLUTIONS PRIVATE LIMITED'),
+            'logo' => [
+                '@type' => 'ImageObject',
+                'url' => asset('assets/logos/logo.png'),
+            ],
+        ],
+        'datePublished' => ($blog->published_at ?? $blog->created_at ?? now())->toIso8601String(),
+        'dateModified' => ($blog->updated_at ?? now())->toIso8601String(),
+        'mainEntityOfPage' => [
+            '@type' => 'WebPage',
+            '@id' => $canonicalUrl,
+        ],
+    ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+    </script>
+@endsection
 
 @section('content')
 <!-- Article Header -->

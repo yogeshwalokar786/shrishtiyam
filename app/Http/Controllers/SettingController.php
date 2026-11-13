@@ -91,9 +91,27 @@ class SettingController extends Controller
             'social_facebook' => 'nullable|url|max:255',
             'social_youtube' => 'nullable|url|max:255',
 
-            // SEO & Legal
+            // SEO & Legal (Global, About & Contact)
             'meta_title' => 'nullable|string|max:200',
             'meta_description' => 'nullable|string|max:500',
+            'meta_keywords' => 'nullable|string|max:500',
+            'canonical_url' => 'nullable|string|max:500',
+            'og_image' => 'nullable|string|max:500',
+
+            // About Page SEO
+            'about_meta_title' => 'nullable|string|max:200',
+            'about_meta_description' => 'nullable|string|max:500',
+            'about_meta_keywords' => 'nullable|string|max:500',
+            'about_canonical_url' => 'nullable|string|max:500',
+            'about_og_image' => 'nullable|string|max:500',
+
+            // Contact Page SEO
+            'contact_meta_title' => 'nullable|string|max:200',
+            'contact_meta_description' => 'nullable|string|max:500',
+            'contact_meta_keywords' => 'nullable|string|max:500',
+            'contact_canonical_url' => 'nullable|string|max:500',
+            'contact_og_image' => 'nullable|string|max:500',
+
             'copyright_text' => 'nullable|string|max:255',
         ]);
 

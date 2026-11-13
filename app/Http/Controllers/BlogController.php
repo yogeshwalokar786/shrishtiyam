@@ -92,6 +92,14 @@ class BlogController extends Controller
             'published_at' => ['nullable', 'date'],
             'meta_title' => ['nullable', 'string', 'max:255'],
             'meta_description' => ['nullable', 'string', 'max:500'],
+            'meta_keywords' => ['nullable', 'string', 'max:500'],
+            'canonical_url' => ['nullable', 'string', 'max:500'],
+            'og_title' => ['nullable', 'string', 'max:255'],
+            'og_description' => ['nullable', 'string', 'max:1000'],
+            'og_image' => ['nullable', 'string', 'max:500'],
+            'schema_type' => ['nullable', 'string', 'in:Article,BlogPosting,NewsArticle'],
+            'robots_index' => ['nullable', 'string', 'in:index,noindex'],
+            'robots_follow' => ['nullable', 'string', 'in:follow,nofollow'],
         ]);
 
         $slug = !empty($validated['slug']) ? Str::slug($validated['slug']) : Str::slug($validated['title']);
@@ -158,6 +166,14 @@ class BlogController extends Controller
             'published_at' => $publishedAt,
             'meta_title' => $metaTitle,
             'meta_description' => $validated['meta_description'] ?? null,
+            'meta_keywords' => $validated['meta_keywords'] ?? null,
+            'canonical_url' => $validated['canonical_url'] ?? null,
+            'og_title' => $validated['og_title'] ?? null,
+            'og_description' => $validated['og_description'] ?? null,
+            'og_image' => $validated['og_image'] ?? null,
+            'schema_type' => $validated['schema_type'] ?? 'Article',
+            'robots_index' => $validated['robots_index'] ?? 'index',
+            'robots_follow' => $validated['robots_follow'] ?? 'follow',
         ]);
 
         return redirect()->route('admin.blogs.index')
@@ -194,6 +210,14 @@ class BlogController extends Controller
             'published_at' => ['nullable', 'date'],
             'meta_title' => ['nullable', 'string', 'max:255'],
             'meta_description' => ['nullable', 'string', 'max:500'],
+            'meta_keywords' => ['nullable', 'string', 'max:500'],
+            'canonical_url' => ['nullable', 'string', 'max:500'],
+            'og_title' => ['nullable', 'string', 'max:255'],
+            'og_description' => ['nullable', 'string', 'max:1000'],
+            'og_image' => ['nullable', 'string', 'max:500'],
+            'schema_type' => ['nullable', 'string', 'in:Article,BlogPosting,NewsArticle'],
+            'robots_index' => ['nullable', 'string', 'in:index,noindex'],
+            'robots_follow' => ['nullable', 'string', 'in:follow,nofollow'],
         ]);
 
         $imagePath = $blog->image;
@@ -254,6 +278,14 @@ class BlogController extends Controller
             'published_at' => $publishedAt,
             'meta_title' => $metaTitle,
             'meta_description' => $validated['meta_description'] ?? null,
+            'meta_keywords' => $validated['meta_keywords'] ?? null,
+            'canonical_url' => $validated['canonical_url'] ?? null,
+            'og_title' => $validated['og_title'] ?? null,
+            'og_description' => $validated['og_description'] ?? null,
+            'og_image' => $validated['og_image'] ?? null,
+            'schema_type' => $validated['schema_type'] ?? 'Article',
+            'robots_index' => $validated['robots_index'] ?? 'index',
+            'robots_follow' => $validated['robots_follow'] ?? 'follow',
         ]);
 
         return redirect()->route('admin.blogs.index')

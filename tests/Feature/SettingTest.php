@@ -182,4 +182,57 @@ class SettingTest extends TestCase
         $viewResponse->assertSee('https://example.com/storage/media/brand_logo.png');
         $viewResponse->assertSee('https://example.com/storage/media/favicon.ico');
     }
+
+    public function test_admin_can_update_about_and_contact_page_seo_and_public_pages_render_them(): void
+    {
+        // 1. Admin saves custom SEO settings for About and Contact pages
+        $response = $this->actingAs($this->admin)->put(route('admin.settings.update'), [
+            'site_name' => 'SHRISTIYAM',
+            'meta_title' => 'Global Fallback Meta Title',
+            'meta_description' => 'Global Fallback Meta Description.',
+            'meta_keywords' => 'global, circular, economy',
+            'canonical_url' => 'https://shristiyam.com',
+            'og_image' => 'https://shristiyam.com/assets/images/global-og.jpg',
+
+            // About Page SEO
+            'about_meta_title' => 'Custom About Us Page SEO Title',
+            'about_meta_description' => 'Custom About page meta description explaining circular vision and statutory compliance.',
+            'about_meta_keywords' => 'custom, about, keywords, test',
+            'about_canonical_url' => 'https://shristiyam.com/about-us',
+            'about_og_image' => 'https://shristiyam.com/assets/images/about-og-custom.jpg',
+
+            // Contact Page SEO
+            'contact_meta_title' => 'Custom Contact Us Page SEO Title',
+            'contact_meta_description' => 'Custom Contact page meta description for inquiries and consultations.',
+            'contact_meta_keywords' => 'custom, contact, keywords, test',
+            'contact_canonical_url' => 'https://shristiyam.com/contact-us',
+            'contact_og_image' => 'https://shristiyam.com/assets/images/contact-og-custom.jpg',
+        ]);
+
+        $response->assertRedirect(route('admin.settings.index'));
+
+        // Verify settings stored
+        $this->assertEquals('Custom About Us Page SEO Title', Setting::get('about_meta_title'));
+        $this->assertEquals('Custom Contact Us Page SEO Title', Setting::get('contact_meta_title'));
+
+        // 2. Verify public About Page renders custom SEO tags
+        $aboutResponse = $this->get('/about');
+        $aboutResponse->assertStatus(200);
+        $aboutResponse->assertSee('<title>Custom About Us Page SEO Title</title>', false);
+        $aboutResponse->assertSee('content="Custom About page meta description explaining circular vision and statutory compliance."', false);
+        $aboutResponse->assertSee('content="custom, about, keywords, test"', false);
+        $aboutResponse->assertSee('<link rel="canonical" href="https://shristiyam.com/about-us">', false);
+        $aboutResponse->assertSee('property="og:title" content="Custom About Us Page SEO Title"', false);
+        $aboutResponse->assertSee('property="og:image" content="https://shristiyam.com/assets/images/about-og-custom.jpg"', false);
+
+        // 3. Verify public Contact Page renders custom SEO tags
+        $contactResponse = $this->get('/contact');
+        $contactResponse->assertStatus(200);
+        $contactResponse->assertSee('<title>Custom Contact Us Page SEO Title</title>', false);
+        $contactResponse->assertSee('content="Custom Contact page meta description for inquiries and consultations."', false);
+        $contactResponse->assertSee('content="custom, contact, keywords, test"', false);
+        $contactResponse->assertSee('<link rel="canonical" href="https://shristiyam.com/contact-us">', false);
+        $contactResponse->assertSee('property="og:title" content="Custom Contact Us Page SEO Title"', false);
+        $contactResponse->assertSee('property="og:image" content="https://shristiyam.com/assets/images/contact-og-custom.jpg"', false);
+    }
 }

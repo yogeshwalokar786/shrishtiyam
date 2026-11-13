@@ -3,8 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@yield('title', setting('meta_title', 'CircuFlow | Next-Gen Circular Economy & Waste Management Solutions'))</title>
-  <meta name="description" content="@yield('meta_description', setting('meta_description', 'CircuFlow delivers high-grade PCR polymer resins, statutory EPR compliance, decentralized zero-waste municipal MRFs, and traceable circular supply chains.'))">
+  <title>@yield('title', setting('meta_title', 'SHRISTIYAM | Next-Gen Circular Economy & Compliance Solutions'))</title>
+  <meta name="description" content="@yield('meta_description', setting('meta_description', 'SHRISTIYAM COMPLIANCE SOLUTIONS delivers statutory EPR compliance, recycling frameworks, and traceable environmental solutions.'))">
+  @hasSection('meta_keywords')
+    <meta name="keywords" content="@yield('meta_keywords')">
+  @elseif(setting('meta_keywords'))
+    <meta name="keywords" content="{{ setting('meta_keywords') }}">
+  @endif
+  @hasSection('canonical')
+    <link rel="canonical" href="@yield('canonical')">
+  @elseif(setting('canonical_url'))
+    <link rel="canonical" href="{{ setting('canonical_url') }}">
+  @endif
   @if(setting('site_favicon'))
     <link rel="icon" type="image/x-icon" href="{{ setting('site_favicon') }}">
   @else

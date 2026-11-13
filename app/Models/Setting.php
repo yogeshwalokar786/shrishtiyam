@@ -60,6 +60,24 @@ class Setting extends Model
         // SEO & Legal
         'meta_title' => 'SHRISTIYAM | Next-Gen Circular Economy & Compliance Solutions',
         'meta_description' => 'SHRISTIYAM COMPLIANCE SOLUTIONS delivers statutory EPR compliance, recycling frameworks, and traceable environmental solutions.',
+        'meta_keywords' => 'circular economy, EPR compliance, waste management, recycling, environmental solutions, statutory compliance, sustainable packaging',
+        'canonical_url' => '',
+        'og_image' => '',
+
+        // About Page SEO
+        'about_meta_title' => 'About Us | India’s Plastic Paradox & Our Vision | SHRISTIYAM',
+        'about_meta_description' => 'Learn about SHRISTIYAM roots, vision, and commitment to turning waste into resources. Headquartered in Nagpur, building a circular future where waste becomes value.',
+        'about_meta_keywords' => 'about shristiyam, environmental compliance, EPR leaders, waste management india, sustainable solutions, circular infrastructure',
+        'about_canonical_url' => '',
+        'about_og_image' => '',
+
+        // Contact Page SEO
+        'contact_meta_title' => 'Contact Us | SHRISTIYAM Compliance Solutions',
+        'contact_meta_description' => 'Get in touch with SHRISTIYAM COMPLIANCE SOLUTIONS for statutory EPR compliance, recycling frameworks, and regulatory advisory.',
+        'contact_meta_keywords' => 'contact shristiyam, EPR consultancy contact, circular economy inquiry, recycling consultation, environmental advisory',
+        'contact_canonical_url' => '',
+        'contact_og_image' => '',
+
         'copyright_text' => '© 2026 SHRISTIYAM COMPLIANCE SOLUTIONS PRIVATE LIMITED. All rights reserved.',
     ];
 

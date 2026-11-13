@@ -46,6 +46,14 @@ CREATE TABLE `blogs` (
   `views_count` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `meta_title` varchar(255) DEFAULT NULL,
   `meta_description` varchar(255) DEFAULT NULL,
+  `meta_keywords` varchar(500) DEFAULT NULL,
+  `canonical_url` varchar(500) DEFAULT NULL,
+  `og_title` varchar(255) DEFAULT NULL,
+  `og_description` text DEFAULT NULL,
+  `og_image` varchar(500) DEFAULT NULL,
+  `schema_type` varchar(50) NOT NULL DEFAULT 'Article',
+  `robots_index` varchar(20) NOT NULL DEFAULT 'index',
+  `robots_follow` varchar(20) NOT NULL DEFAULT 'follow',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -300,7 +308,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2026_09_30_120000_create_settings_table', 7),
 (12, '2026_10_02_100000_create_testimonials_table', 8),
 (13, '2026_10_02_110000_create_client_logos_table', 9),
-(14, '2026_11_04_000001_create_job_openings_table', 10);
+(14, '2026_11_04_000001_create_job_openings_table', 10),
+(15, '2026_11_13_000001_add_advanced_seo_to_blogs_table', 11);
 
 -- --------------------------------------------------------
 
@@ -413,11 +422,24 @@ INSERT INTO `settings` (`id`, `key`, `value`, `group`, `type`, `created_at`, `up
 (16, 'social_twitter', 'https://twitter.com/circuflow', 'social', 'text', '2026-09-30 07:19:01', '2026-09-30 07:19:01'),
 (17, 'social_facebook', 'https://facebook.com/circuflow', 'social', 'text', '2026-09-30 07:19:01', '2026-09-30 07:19:01'),
 (18, 'social_youtube', 'https://youtube.com', 'social', 'text', '2026-09-30 07:19:01', '2026-09-30 07:19:01'),
-(19, 'meta_title', 'CircuFlow | Next-Gen Circular Economy & Waste Management Solutions', 'seo', 'text', '2026-09-30 07:19:01', '2026-09-30 07:19:01'),
-(20, 'meta_description', 'CircuFlow delivers high-grade PCR polymer resins, statutory EPR compliance, decentralized zero-waste municipal MRFs, and traceable circular supply chains.', 'seo', 'textarea', '2026-09-30 07:19:01', '2026-09-30 07:19:01'),
+(19, 'meta_title', 'SHRISTIYAM | Next-Gen Circular Economy & Compliance Solutions', 'seo', 'text', '2026-09-30 07:19:01', '2026-11-13 18:00:00'),
+(20, 'meta_description', 'SHRISTIYAM COMPLIANCE SOLUTIONS delivers statutory EPR compliance, recycling frameworks, and traceable environmental solutions.', 'seo', 'textarea', '2026-09-30 07:19:01', '2026-11-13 18:00:00'),
 (21, 'copyright_text', '© 2026 SHRISTIYAM COMPLIANCE SOLUTIONS PRIVATE LIMITED. All rights reserved.', 'seo', 'textarea', '2026-09-30 07:19:01', '2026-09-30 08:24:45'),
 (22, 'company_legal_name', 'SHRISTIYAM COMPLIANCE SOLUTIONS PRIVATE LIMITED', 'branding', 'text', '2026-09-30 08:24:45', '2026-09-30 08:24:45'),
-(23, 'company_cin', 'U74900ME2026PTC473633', 'regulatory', 'text', '2026-09-30 08:24:45', '2026-09-30 08:24:45');
+(23, 'company_cin', 'U74900ME2026PTC473633', 'regulatory', 'text', '2026-09-30 08:24:45', '2026-09-30 08:24:45'),
+(24, 'meta_keywords', 'circular economy, EPR compliance, waste management, recycling, environmental solutions, statutory compliance, sustainable packaging', 'seo', 'text', '2026-11-13 18:00:00', '2026-11-13 18:00:00'),
+(25, 'canonical_url', '', 'seo', 'text', '2026-11-13 18:00:00', '2026-11-13 18:00:00'),
+(26, 'og_image', '', 'seo', 'text', '2026-11-13 18:00:00', '2026-11-13 18:00:00'),
+(27, 'about_meta_title', 'About Us | India’s Plastic Paradox & Our Vision | SHRISTIYAM', 'seo', 'text', '2026-11-13 18:00:00', '2026-11-13 18:00:00'),
+(28, 'about_meta_description', 'Learn about SHRISTIYAM roots, vision, and commitment to turning waste into resources. Headquartered in Nagpur, building a circular future where waste becomes value.', 'seo', 'textarea', '2026-11-13 18:00:00', '2026-11-13 18:00:00'),
+(29, 'about_meta_keywords', 'about shristiyam, environmental compliance, EPR leaders, waste management india, sustainable solutions, circular infrastructure', 'seo', 'text', '2026-11-13 18:00:00', '2026-11-13 18:00:00'),
+(30, 'about_canonical_url', '', 'seo', 'text', '2026-11-13 18:00:00', '2026-11-13 18:00:00'),
+(31, 'about_og_image', '', 'seo', 'text', '2026-11-13 18:00:00', '2026-11-13 18:00:00'),
+(32, 'contact_meta_title', 'Contact Us | SHRISTIYAM Compliance Solutions', 'seo', 'text', '2026-11-13 18:00:00', '2026-11-13 18:00:00'),
+(33, 'contact_meta_description', 'Get in touch with SHRISTIYAM COMPLIANCE SOLUTIONS for statutory EPR compliance, recycling frameworks, and regulatory advisory.', 'seo', 'textarea', '2026-11-13 18:00:00', '2026-11-13 18:00:00'),
+(34, 'contact_meta_keywords', 'contact shristiyam, EPR consultancy contact, circular economy inquiry, recycling consultation, environmental advisory', 'seo', 'text', '2026-11-13 18:00:00', '2026-11-13 18:00:00'),
+(35, 'contact_canonical_url', '', 'seo', 'text', '2026-11-13 18:00:00', '2026-11-13 18:00:00'),
+(36, 'contact_og_image', '', 'seo', 'text', '2026-11-13 18:00:00', '2026-11-13 18:00:00');
 
 -- --------------------------------------------------------
 
@@ -712,7 +734,7 @@ ALTER TABLE `policies`
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `testimonials`

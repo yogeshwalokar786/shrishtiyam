@@ -1,7 +1,63 @@
 @extends('layouts.site')
 
-@section('title', 'Contact Us | ' . setting('site_name', 'SHRISTIYAM'))
-@section('meta_description', 'Contact ' . setting('company_legal_name', 'SHRISTIYAM COMPLIANCE SOLUTIONS PRIVATE LIMITED') . ' for statutory EPR compliance, recycling solutions, and regulatory advisory.')
+@php
+    $contactTitle = setting('contact_meta_title') ?: ('Contact Us | ' . setting('site_name', 'SHRISTIYAM'));
+    $contactDesc = setting('contact_meta_description') ?: ('Contact ' . setting('company_legal_name', 'SHRISTIYAM COMPLIANCE SOLUTIONS PRIVATE LIMITED') . ' for statutory EPR compliance, recycling solutions, and regulatory advisory.');
+    $contactKeywords = setting('contact_meta_keywords') ?: 'contact shristiyam, EPR consultancy contact, circular economy inquiry, recycling consultation, environmental advisory';
+    $contactCanonical = setting('contact_canonical_url') ?: url('/contact');
+    $contactOgImage = setting('contact_og_image') ?: (setting('site_logo') ?: asset('assets/logos/logo.png'));
+    if (!Str::startsWith($contactOgImage, ['http://', 'https://'])) {
+        $contactOgImage = asset(ltrim($contactOgImage, '/'));
+    }
+@endphp
+
+@section('title', $contactTitle)
+@section('meta_description', $contactDesc)
+
+@section('head')
+    @if($contactKeywords)
+        <meta name="keywords" content="{{ $contactKeywords }}">
+    @endif
+    <link rel="canonical" href="{{ $contactCanonical }}">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="{{ setting('site_name', 'SHRISTIYAM') }}">
+    <meta property="og:url" content="{{ $contactCanonical }}">
+    <meta property="og:title" content="{{ $contactTitle }}">
+    <meta property="og:description" content="{{ $contactDesc }}">
+    <meta property="og:image" content="{{ $contactOgImage }}">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $contactTitle }}">
+    <meta name="twitter:description" content="{{ $contactDesc }}">
+    <meta name="twitter:image" content="{{ $contactOgImage }}">
+
+    <script type="application/ld+json">
+    {!! json_encode([
+      '@context' => 'https://schema.org',
+      '@type' => 'ContactPage',
+      'name' => $contactTitle,
+      'description' => $contactDesc,
+      'url' => $contactCanonical,
+      'mainEntity' => [
+        '@type' => 'Organization',
+        'name' => setting('company_legal_name', 'SHRISTIYAM COMPLIANCE SOLUTIONS PRIVATE LIMITED'),
+        'telephone' => setting('contact_phone', '7020784898 / 9112327953'),
+        'email' => setting('contact_email', 'admin@shristiyam.com'),
+        'address' => [
+          '@type' => 'PostalAddress',
+          'streetAddress' => setting('contact_address', 'PL.NO.151, RAMDASPETH, NEAR TULI IMPERIAL HOTEL'),
+          'addressLocality' => 'Nagpur',
+          'postalCode' => '440010',
+          'addressRegion' => 'Maharashtra',
+          'addressCountry' => 'India',
+        ],
+      ],
+    ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+    </script>
+@endsection
 
 @section('content')
 <!-- Page Header -->

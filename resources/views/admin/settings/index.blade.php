@@ -609,6 +609,7 @@
                      TAB 6: SEO & LEGAL
                      ========================================== -->
                 <div class="tab-pane" id="pane-seo">
+                    <!-- Global SEO & Search Defaults -->
                     <div class="card" style="margin-bottom: 24px;">
                         <div class="card-header">
                             <h2 class="card-title">
@@ -616,7 +617,7 @@
                                     <circle cx="11" cy="11" r="8"></circle>
                                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                 </svg>
-                                <span>SEO & Legal Content</span>
+                                <span>Global SEO & Fallback Metadata</span>
                             </h2>
                         </div>
                         <div class="card-body">
@@ -629,8 +630,9 @@
                                     name="meta_title" 
                                     class="form-control"
                                     value="{{ old('meta_title', $settings['meta_title'] ?? '') }}" 
-                                    placeholder="CircuFlow | Next-Gen Circular Economy & Waste Management Solutions"
+                                    placeholder="SHRISTIYAM | Next-Gen Circular Economy & Compliance Solutions"
                                 >
+                                <span class="form-help">Displayed across search engine results as default title tag.</span>
                             </div>
 
                             <!-- Default Meta Description -->
@@ -641,10 +643,251 @@
                                     name="meta_description" 
                                     rows="3" 
                                     class="form-control"
-                                    placeholder="Meta description"
+                                    placeholder="Global meta description for search engine snippets..."
                                 >{{ old('meta_description', $settings['meta_description'] ?? '') }}</textarea>
+                                <span class="form-help">Recommended 140–160 characters.</span>
                             </div>
 
+                            <!-- Global Meta Keywords -->
+                            <div class="form-group">
+                                <label for="meta_keywords" class="form-label">Global Meta Keywords</label>
+                                <input 
+                                    type="text" 
+                                    id="meta_keywords" 
+                                    name="meta_keywords" 
+                                    class="form-control"
+                                    value="{{ old('meta_keywords', $settings['meta_keywords'] ?? '') }}" 
+                                    placeholder="circular economy, EPR compliance, waste management, recycling, environmental solutions"
+                                >
+                                <span class="form-help">Comma-separated general search keywords.</span>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                <!-- Global Canonical URL -->
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label for="canonical_url" class="form-label">Global Canonical URL Override (Optional)</label>
+                                    <input 
+                                        type="url" 
+                                        id="canonical_url" 
+                                        name="canonical_url" 
+                                        class="form-control"
+                                        value="{{ old('canonical_url', $settings['canonical_url'] ?? '') }}" 
+                                        placeholder="https://shristiyam.com"
+                                    >
+                                    <span class="form-help">Leave blank to use current request URL.</span>
+                                </div>
+
+                                <!-- Default Social Share (OG) Image -->
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label for="og_image" class="form-label">Default Social Share (OG) Image</label>
+                                    <div style="display: flex; gap: 8px;">
+                                        <input 
+                                            type="text" 
+                                            id="og_image" 
+                                            name="og_image" 
+                                            class="form-control"
+                                            value="{{ old('og_image', $settings['og_image'] ?? '') }}" 
+                                            placeholder="/storage/media/og-share.jpg"
+                                            style="flex: 1;"
+                                        >
+                                        <button type="button" onclick="chooseImageIntoInput('og_image', 'Choose Global Share Image')" class="btn btn-secondary" style="font-size: 0.82rem; padding: 6px 12px; white-space: nowrap;">
+                                            Media
+                                        </button>
+                                    </div>
+                                    <span class="form-help">Fallback image when shared on WhatsApp, LinkedIn, X.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- About Us Page SEO -->
+                    <div class="card" style="margin-bottom: 24px;">
+                        <div class="card-header" style="background: rgba(5, 150, 105, 0.03); border-bottom: 1px solid rgba(5, 150, 105, 0.15);">
+                            <h2 class="card-title" style="color: #059669;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                </svg>
+                                <span>About Us Page SEO (/about)</span>
+                            </h2>
+                        </div>
+                        <div class="card-body">
+                            <!-- About Meta Title -->
+                            <div class="form-group">
+                                <label for="about_meta_title" class="form-label">About Page SEO Title</label>
+                                <input 
+                                    type="text" 
+                                    id="about_meta_title" 
+                                    name="about_meta_title" 
+                                    class="form-control"
+                                    value="{{ old('about_meta_title', $settings['about_meta_title'] ?? '') }}" 
+                                    placeholder="About Us | India’s Plastic Paradox & Our Vision | SHRISTIYAM"
+                                >
+                            </div>
+
+                            <!-- About Meta Description -->
+                            <div class="form-group">
+                                <label for="about_meta_description" class="form-label">About Page Meta Description</label>
+                                <textarea 
+                                    id="about_meta_description" 
+                                    name="about_meta_description" 
+                                    rows="3" 
+                                    class="form-control"
+                                    placeholder="Learn about SHRISTIYAM roots, vision, and commitment to turning waste into resources..."
+                                >{{ old('about_meta_description', $settings['about_meta_description'] ?? '') }}</textarea>
+                            </div>
+
+                            <!-- About Meta Keywords -->
+                            <div class="form-group">
+                                <label for="about_meta_keywords" class="form-label">About Page Keywords</label>
+                                <input 
+                                    type="text" 
+                                    id="about_meta_keywords" 
+                                    name="about_meta_keywords" 
+                                    class="form-control"
+                                    value="{{ old('about_meta_keywords', $settings['about_meta_keywords'] ?? '') }}" 
+                                    placeholder="about shristiyam, environmental compliance, EPR leaders, waste management india"
+                                >
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                <!-- About Canonical URL -->
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label for="about_canonical_url" class="form-label">About Page Canonical URL</label>
+                                    <input 
+                                        type="url" 
+                                        id="about_canonical_url" 
+                                        name="about_canonical_url" 
+                                        class="form-control"
+                                        value="{{ old('about_canonical_url', $settings['about_canonical_url'] ?? '') }}" 
+                                        placeholder="https://shristiyam.com/about"
+                                    >
+                                    <span class="form-help">Leave blank to use {{ url('/about') }}</span>
+                                </div>
+
+                                <!-- About OG Image -->
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label for="about_og_image" class="form-label">About Page Social Share (OG) Image</label>
+                                    <div style="display: flex; gap: 8px;">
+                                        <input 
+                                            type="text" 
+                                            id="about_og_image" 
+                                            name="about_og_image" 
+                                            class="form-control"
+                                            value="{{ old('about_og_image', $settings['about_og_image'] ?? '') }}" 
+                                            placeholder="/assets/images/about-hero-bottle.webp"
+                                            style="flex: 1;"
+                                        >
+                                        <button type="button" onclick="chooseImageIntoInput('about_og_image', 'Choose About Share Image')" class="btn btn-secondary" style="font-size: 0.82rem; padding: 6px 12px; white-space: nowrap;">
+                                            Media
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Us Page SEO -->
+                    <div class="card" style="margin-bottom: 24px;">
+                        <div class="card-header" style="background: rgba(14, 165, 233, 0.03); border-bottom: 1px solid rgba(14, 165, 233, 0.15);">
+                            <h2 class="card-title" style="color: #0284c7;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                <span>Contact Us Page SEO (/contact)</span>
+                            </h2>
+                        </div>
+                        <div class="card-body">
+                            <!-- Contact Meta Title -->
+                            <div class="form-group">
+                                <label for="contact_meta_title" class="form-label">Contact Page SEO Title</label>
+                                <input 
+                                    type="text" 
+                                    id="contact_meta_title" 
+                                    name="contact_meta_title" 
+                                    class="form-control"
+                                    value="{{ old('contact_meta_title', $settings['contact_meta_title'] ?? '') }}" 
+                                    placeholder="Contact Us | SHRISTIYAM Compliance Solutions"
+                                >
+                            </div>
+
+                            <!-- Contact Meta Description -->
+                            <div class="form-group">
+                                <label for="contact_meta_description" class="form-label">Contact Page Meta Description</label>
+                                <textarea 
+                                    id="contact_meta_description" 
+                                    name="contact_meta_description" 
+                                    rows="3" 
+                                    class="form-control"
+                                    placeholder="Get in touch with SHRISTIYAM COMPLIANCE SOLUTIONS for statutory EPR compliance, recycling frameworks, and regulatory advisory..."
+                                >{{ old('contact_meta_description', $settings['contact_meta_description'] ?? '') }}</textarea>
+                            </div>
+
+                            <!-- Contact Meta Keywords -->
+                            <div class="form-group">
+                                <label for="contact_meta_keywords" class="form-label">Contact Page Keywords</label>
+                                <input 
+                                    type="text" 
+                                    id="contact_meta_keywords" 
+                                    name="contact_meta_keywords" 
+                                    class="form-control"
+                                    value="{{ old('contact_meta_keywords', $settings['contact_meta_keywords'] ?? '') }}" 
+                                    placeholder="contact shristiyam, EPR consultancy contact, circular economy inquiry, recycling consultation"
+                                >
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                                <!-- Contact Canonical URL -->
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label for="contact_canonical_url" class="form-label">Contact Page Canonical URL</label>
+                                    <input 
+                                        type="url" 
+                                        id="contact_canonical_url" 
+                                        name="contact_canonical_url" 
+                                        class="form-control"
+                                        value="{{ old('contact_canonical_url', $settings['contact_canonical_url'] ?? '') }}" 
+                                        placeholder="https://shristiyam.com/contact"
+                                    >
+                                    <span class="form-help">Leave blank to use {{ url('/contact') }}</span>
+                                </div>
+
+                                <!-- Contact OG Image -->
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label for="contact_og_image" class="form-label">Contact Page Social Share (OG) Image</label>
+                                    <div style="display: flex; gap: 8px;">
+                                        <input 
+                                            type="text" 
+                                            id="contact_og_image" 
+                                            name="contact_og_image" 
+                                            class="form-control"
+                                            value="{{ old('contact_og_image', $settings['contact_og_image'] ?? '') }}" 
+                                            placeholder="/assets/logos/logo.png"
+                                            style="flex: 1;"
+                                        >
+                                        <button type="button" onclick="chooseImageIntoInput('contact_og_image', 'Choose Contact Share Image')" class="btn btn-secondary" style="font-size: 0.82rem; padding: 6px 12px; white-space: nowrap;">
+                                            Media
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer & Legal Notices -->
+                    <div class="card" style="margin-bottom: 24px;">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                </svg>
+                                <span>Footer Legal & Copyright</span>
+                            </h2>
+                        </div>
+                        <div class="card-body">
                             <!-- Copyright Notice -->
                             <div class="form-group" style="margin-bottom: 0;">
                                 <label for="copyright_text" class="form-label">Footer Copyright Notice</label>
@@ -654,7 +897,7 @@
                                     name="copyright_text" 
                                     class="form-control"
                                     value="{{ old('copyright_text', $settings['copyright_text'] ?? '') }}" 
-                                    placeholder="© 2026 CircuFlow Circular Solutions. All rights reserved."
+                                    placeholder="© 2026 SHRISTIYAM COMPLIANCE SOLUTIONS PRIVATE LIMITED. All rights reserved."
                                 >
                             </div>
                         </div>
@@ -689,6 +932,23 @@
 
 @push('scripts')
 <script>
+// Generic Media Picker Trigger for any text input
+window.chooseImageIntoInput = function (targetInputId, buttonTitle) {
+    if (typeof openMediaPickerModal !== 'function') {
+        console.error('Media picker modal not loaded');
+        return;
+    }
+    openMediaPickerModal(function (selected) {
+        const input = document.getElementById(targetInputId);
+        if (input) {
+            input.value = selected.url;
+        }
+    }, {
+        buttonText: buttonTitle || 'Select Image',
+        showAlt: false
+    });
+};
+
 // Global Media Picker Trigger for Primary Website Logo
 window.chooseLogoFromMedia = function () {
     if (typeof openMediaPickerModal !== 'function') {

@@ -347,4 +347,89 @@ class BlogTest extends TestCase
         // Verify blog getImageUrlAttribute resolves correctly
         $this->assertStringContainsString('storage/media/', $blog->image_url);
     }
+
+    public function test_admin_can_manage_blog_advanced_seo_and_public_page_renders_meta_tags(): void
+    {
+        // 1. Create blog with full advanced SEO suite
+        $createResponse = $this->actingAs($this->admin)->post('/admin/blogs', [
+            'title' => 'Advanced Circular Analytics and EPR Reporting',
+            'slug' => 'advanced-circular-analytics-epr-reporting',
+            'category_id' => $this->category->id,
+            'excerpt' => 'A comprehensive analysis of EPR reporting methodologies.',
+            'content' => '<p>Detailed breakdown of recycling frameworks and digital audit systems.</p>',
+            'meta_title' => 'Advanced EPR Reporting & Circular Analytics 2026',
+            'meta_description' => 'Custom search engine snippet detailing digital EPR audit ledgers and compliance tools.',
+            'meta_keywords' => 'EPR reporting, circular analytics, CPCB audit, plastic credits',
+            'canonical_url' => 'https://shristiyam.com/blog/advanced-circular-analytics-epr-reporting',
+            'og_title' => 'Social Card: Advanced EPR Reporting & Circular Analytics',
+            'og_description' => 'Preview card on LinkedIn and WhatsApp for circular analytics.',
+            'og_image' => 'https://shristiyam.com/assets/images/og-share-sample.jpg',
+            'schema_type' => 'NewsArticle',
+            'robots_index' => 'noindex',
+            'robots_follow' => 'nofollow',
+            'is_published' => 1,
+        ]);
+
+        $createResponse->assertRedirect('/admin/blogs');
+
+        $blog = Blog::where('slug', 'advanced-circular-analytics-epr-reporting')->first();
+        $this->assertNotNull($blog);
+        $this->assertEquals('Advanced EPR Reporting & Circular Analytics 2026', $blog->meta_title);
+        $this->assertEquals('EPR reporting, circular analytics, CPCB audit, plastic credits', $blog->meta_keywords);
+        $this->assertEquals('https://shristiyam.com/blog/advanced-circular-analytics-epr-reporting', $blog->canonical_url);
+        $this->assertEquals('Social Card: Advanced EPR Reporting & Circular Analytics', $blog->og_title);
+        $this->assertEquals('NewsArticle', $blog->schema_type);
+        $this->assertEquals('noindex', $blog->robots_index);
+        $this->assertEquals('nofollow', $blog->robots_follow);
+
+        // 2. Edit & Update Blog SEO fields
+        $updateResponse = $this->actingAs($this->admin)->put("/admin/blogs/{$blog->id}", [
+            'title' => 'Advanced Circular Analytics and EPR Reporting Updated',
+            'slug' => 'advanced-circular-analytics-epr-reporting',
+            'category_id' => $this->category->id,
+            'content' => '<p>Updated content body.</p>',
+            'meta_title' => 'Updated Meta Title for EPR Analytics',
+            'meta_description' => 'Updated meta description for search results.',
+            'meta_keywords' => 'updated, epr, keywords',
+            'canonical_url' => 'https://shristiyam.com/blog/updated-canonical',
+            'og_title' => 'Updated Social Card Title',
+            'og_description' => 'Updated social card description.',
+            'og_image' => 'https://shristiyam.com/assets/images/updated-og.jpg',
+            'schema_type' => 'BlogPosting',
+            'robots_index' => 'index',
+            'robots_follow' => 'follow',
+            'is_published' => 1,
+        ]);
+
+        $updateResponse->assertRedirect('/admin/blogs');
+
+        $blog->refresh();
+        $this->assertEquals('Updated Meta Title for EPR Analytics', $blog->meta_title);
+        $this->assertEquals('BlogPosting', $blog->schema_type);
+        $this->assertEquals('index', $blog->robots_index);
+        $this->assertEquals('follow', $blog->robots_follow);
+
+        // 3. Verify public blog page renders advanced SEO tags, OpenGraph, and JSON-LD schema
+        $publicResponse = $this->get('/blog/' . $blog->slug);
+        $publicResponse->assertStatus(200);
+
+        // Meta title & description
+        $publicResponse->assertSee('<title>Updated Meta Title for EPR Analytics | SHRISTIYAM</title>', false);
+        $publicResponse->assertSee('content="Updated meta description for search results."', false);
+        $publicResponse->assertSee('content="updated, epr, keywords"', false);
+
+        // Canonical & Robots
+        $publicResponse->assertSee('<link rel="canonical" href="https://shristiyam.com/blog/updated-canonical">', false);
+        $publicResponse->assertSee('<meta name="robots" content="index, follow">', false);
+
+        // OpenGraph & Twitter
+        $publicResponse->assertSee('property="og:title" content="Updated Social Card Title"', false);
+        $publicResponse->assertSee('property="og:description" content="Updated social card description."', false);
+        $publicResponse->assertSee('property="og:image" content="https://shristiyam.com/assets/images/updated-og.jpg"', false);
+        $publicResponse->assertSee('name="twitter:card" content="summary_large_image"', false);
+
+        // JSON-LD Structured Data Schema
+        $publicResponse->assertSee('"@type": "BlogPosting"', false);
+        $publicResponse->assertSee('"headline": "Advanced Circular Analytics and EPR Reporting Updated"', false);
+    }
 }
